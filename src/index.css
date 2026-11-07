@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Sans:wdth,wght@75..100,400..700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700;800&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800,900&f[]=clash-display@600,700&display=swap');
+
+:root {
+  --bg-color: #070708;
+  --bg-elevated: #0d0d10;
+  --bg-glass: rgba(14, 14, 18, 0.75);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-active: rgba(182, 146, 255, 0.6);
+  
+  --primary-accent: #b692ff;
+  --primary-accent-hover: #c8adff;
+  --accent-glow: rgba(182, 146, 255, 0.35);
+
+  /* Aliases for backwards compatibility */
+  --primary-orange: #b692ff;
+  --primary-orange-hover: #c8adff;
+  --orange-glow: rgba(182, 146, 255, 0.35);
+
+  --text-white: #ffffff;
+  --text-light: #f0f0f3;
+  --text-muted: #8e8e98;
+  --text-dark: #52525b;
+
+  --font-hero: 'Archivo', -apple-system, Arial, sans-serif;
+  --font-display: 'Archivo', 'Space Grotesk', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--bg-color);
+  color: var(--text-white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Background Ambient Glow & Subtle Grid Noise */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: 
+    radial-gradient(circle at 62% 48%, rgba(182, 146, 255, 0.12) 0%, rgba(182, 146, 255, 0.03) 38%, transparent 72%),
+    radial-gradient(circle at 85% 75%, rgba(182, 146, 255, 0.07) 0%, transparent 45%);
+}
+
+.ambient-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* App Container */
+.page-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3.2vw, 48px);
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 0 16px;
+  }
+}
+
+/* Corner Bracket Accents Helper */
+.corner-frame {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.corner-frame .c-mark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  pointer-events: none;
+  border-color: rgba(255, 255, 255, 0.4);
+  transition: all 0.25s ease;
+}
+
+.corner-frame:hover .c-mark {
+  border-color: var(--primary-accent);
+}
+
+.corner-frame .c-tl {
+  top: -4px;
+  left: -4px;
+  border-top: 1.5px solid;
+  border-left: 1.5px solid;
+}
+
+.corner-frame .c-tr {
+  top: -4px;
+  right: -4px;
+  border-top: 1.5px solid;
+  border-right: 1.5px solid;
+}
+
+.corner-frame .c-bl {
+  bottom: -4px;
+  left: -4px;
+  border-bottom: 1.5px solid;
+  border-left: 1.5px solid;
+}
+
+.corner-frame .c-br {
+  bottom: -4px;
+  right: -4px;
+  border-bottom: 1.5px solid;
+  border-right: 1.5px solid;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-accent);
+}

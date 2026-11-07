@@ -1,0 +1,409 @@
+/* Pricing Section - High-Contrast Bone/Cream Ground */
+.pricing-section {
+  position: relative;
+  width: 100%;
+  background-color: #ECE7DD;
+  color: #14121B;
+  padding: clamp(80px, 9vw, 130px) 0;
+  z-index: 10;
+  border-top: 1px solid rgba(20, 18, 27, 0.08);
+  scroll-snap-align: start;
+}
+
+.pricing-container {
+  width: 100%;
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3.2vw, 48px);
+}
+
+/* Head Section */
+.pricing-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+  gap: clamp(24px, 3vw, 48px);
+  align-items: flex-end;
+  margin-bottom: clamp(36px, 4.5vw, 60px);
+}
+
+.pricing-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Badge: ▪ [ BUILD YOUR TEAM ] */
+.pricing-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  color: #14121B;
+  text-transform: uppercase;
+}
+
+.pricing-headline {
+  font-family: var(--font-hero);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 800;
+  font-weight: 800;
+  font-size: clamp(34px, 4.2vw, 64px);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: #14121B;
+  margin: 0;
+}
+
+.pricing-description {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #5A5866;
+  max-width: 440px;
+  justify-self: end;
+  margin: 0;
+}
+
+/* 3 Pricing Cards Grid */
+.pricing-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* Base Pricing Card */
+.pricing-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(28px, 3vw, 36px);
+  border-radius: 3px;
+  box-shadow: 0 4px 18px rgba(20, 18, 27, 0.05);
+}
+
+/* Light Card */
+.card-light {
+  background-color: #ffffff;
+  border: 1px solid rgba(20, 18, 27, 0.12);
+  color: #14121B;
+}
+
+/* Featured Dark Card */
+.card-featured-dark {
+  background-color: #0e0e12;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+}
+
+.featured-top-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--primary-accent);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.featured-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.most-chosen-badge {
+  background-color: var(--primary-accent);
+  color: #0c0a14;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  border-radius: 1px;
+  text-transform: uppercase;
+}
+
+/* Card Header */
+.card-top-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.card-index-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #71717a;
+}
+
+.accent-num {
+  color: var(--primary-accent);
+}
+
+.card-tier-title {
+  font-family: var(--font-hero);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 800;
+  font-weight: 800;
+  font-size: 21px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #14121B;
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+.card-tier-subtitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+  color: #71717a;
+  margin-bottom: 22px;
+}
+
+.text-muted-dark {
+  color: #8a8d96 !important;
+}
+
+/* Price Box */
+.card-price-box {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.card-price-val {
+  font-family: var(--font-hero);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 800;
+  font-weight: 800;
+  font-size: clamp(34px, 3.2vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #14121B;
+}
+
+.card-price-freq {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #71717a;
+}
+
+/* Interactive Configurator on Dark Card */
+.interactive-config-box {
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  padding: 16px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.config-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 1.2px;
+}
+
+.config-label {
+  color: #8a8d96;
+}
+
+.config-count {
+  color: var(--primary-accent);
+  font-weight: 800;
+  font-size: 14px;
+}
+
+/* Range Slider */
+.config-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.16);
+  outline: none;
+  cursor: pointer;
+}
+
+.config-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  background-color: var(--primary-accent);
+  box-shadow: 0 0 10px var(--primary-accent);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.config-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Designer Checkbox Toggle */
+.config-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.config-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-checkbox-indicator {
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s ease;
+}
+
+.config-checkbox:checked + .custom-checkbox-indicator {
+  background-color: var(--primary-accent);
+  border-color: var(--primary-accent);
+}
+
+.toggle-text {
+  color: #d4d4d8;
+  flex: 1;
+}
+
+.toggle-cost {
+  color: var(--primary-accent);
+  font-weight: 700;
+}
+
+/* Divider */
+.card-features-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(20, 18, 27, 0.12);
+  margin-bottom: 22px;
+}
+
+.divider-dark {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Features List */
+.card-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.card-features-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.4;
+  color: #2e2c38;
+}
+
+.text-features-dark li {
+  color: #d4d4d8 !important;
+}
+
+.feat-cube {
+  width: 5px;
+  height: 5px;
+  background-color: rgba(20, 18, 27, 0.5);
+  border-radius: 1px;
+  flex: none;
+}
+
+.accent-cube {
+  background-color: var(--primary-accent) !important;
+  box-shadow: 0 0 6px var(--primary-accent);
+}
+
+/* Action Button */
+.card-action-wrap {
+  margin-top: auto;
+}
+
+.btn-pricing-light {
+  background-color: #ffffff;
+  border: 1px solid rgba(20, 18, 27, 0.25);
+  color: #14121B;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.btn-pricing-light:hover {
+  background-color: #14121B;
+  color: #ffffff;
+  border-color: #14121B;
+}
+
+.btn-pricing-light:hover .btn-title {
+  color: #ffffff;
+}
+
+.btn-pricing-light:hover .btn-icon-box.box-black {
+  background-color: var(--primary-accent);
+  color: #0c0a14;
+}
+
+.btn-full-card {
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1180px) {
+  .pricing-cards-grid {
+    grid-template-columns: 1fr;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .pricing-section {
+    padding: 60px 0;
+  }
+}

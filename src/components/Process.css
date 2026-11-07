@@ -1,0 +1,230 @@
+/* Process Section - High-Contrast Bone/Cream Ground */
+.process-section {
+  position: relative;
+  width: 100%;
+  background-color: #ECE7DD;
+  color: #14121B;
+  padding: clamp(80px, 9vw, 130px) 0;
+  z-index: 10;
+  border-top: 1px solid rgba(20, 18, 27, 0.08);
+  scroll-snap-align: start;
+}
+
+.process-container {
+  width: 100%;
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3.2vw, 48px);
+}
+
+/* Head Section */
+.process-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+  gap: clamp(24px, 3vw, 48px);
+  align-items: flex-end;
+  margin-bottom: clamp(36px, 4.5vw, 60px);
+}
+
+.process-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Badge: ▪ [ PROCESS ] */
+.process-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  color: #14121B;
+  text-transform: uppercase;
+}
+
+.process-headline {
+  font-family: var(--font-hero);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 800;
+  font-weight: 800;
+  font-size: clamp(34px, 4.2vw, 64px);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: #14121B;
+  margin: 0;
+}
+
+.process-accent {
+  color: var(--primary-accent);
+  text-shadow: 0 0 30px rgba(182, 146, 255, 0.45);
+}
+
+.process-description {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #5A5866;
+  max-width: 440px;
+  justify-self: end;
+  margin: 0;
+}
+
+/* Steps List */
+.process-steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.process-step-row {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: clamp(16px, 2.5vw, 24px);
+  padding: clamp(24px, 3.2vw, 36px) 0;
+  border-top: 1px solid rgba(20, 18, 27, 0.14);
+  transition: background-color 0.2s ease;
+}
+
+.process-step-row:last-child {
+  border-bottom: 1px solid rgba(20, 18, 27, 0.14);
+}
+
+/* Left Icon / Beacon Flag */
+.step-icon {
+  position: relative;
+  width: 44px;
+  height: 28px;
+  background-color: var(--primary-accent);
+  box-shadow: 0 0 10px rgba(182, 146, 255, 0.4);
+  border-radius: 1px;
+  margin-top: 4px;
+}
+
+.step-dot {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  background-color: #14121B;
+  border-radius: 1px;
+}
+
+/* Step Content */
+.step-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.step-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #71717a;
+}
+
+.step-id {
+  color: var(--primary-accent);
+  font-weight: 700;
+}
+
+.step-time {
+  color: #71717a;
+}
+
+.step-title {
+  font-family: var(--font-hero);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 800;
+  font-weight: 800;
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.015em;
+  color: #14121B;
+  margin: 6px 0 10px;
+}
+
+.step-desc {
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #5A5866;
+  margin: 0 0 16px;
+  max-width: 680px;
+}
+
+/* Tags List */
+.step-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.step-tag-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  background: #ffffff;
+  color: #14121B;
+  border: 1px solid rgba(20, 18, 27, 0.12);
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(20, 18, 27, 0.04);
+  transition: all 0.2s ease;
+}
+
+.step-tag-pill:hover {
+  border-color: var(--primary-accent);
+  transform: translateY(-1px);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1099px) {
+  .process-head {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .process-description {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .process-section {
+    padding: 60px 0;
+  }
+  .process-step-row {
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+  }
+  .step-icon {
+    width: 36px;
+    height: 24px;
+  }
+  .step-dot {
+    width: 5px;
+    height: 5px;
+    left: 5px;
+    top: 5px;
+  }
+  .step-title {
+    font-size: 20px;
+  }
+  .step-desc {
+    font-size: 14px;
+  }
+  .step-tag-pill {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+}

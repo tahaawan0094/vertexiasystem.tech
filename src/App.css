@@ -1,0 +1,48 @@
+.app-root {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-white);
+  overflow-x: hidden;
+}
+
+/* Screen 1: Clean Viewport Fit */
+.hero-screen-wrapper {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+@media (max-width: 900px), (max-height: 700px) {
+  .hero-screen-wrapper {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+.hero-page-container {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 0 !important;
+}
+
+.hero-main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+}

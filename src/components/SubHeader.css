@@ -1,0 +1,92 @@
+.subheader-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0 32px 0;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  color: var(--text-light);
+  user-select: none;
+}
+
+.subheader-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subheader-left .mono-badge {
+  color: #71717a;
+  font-weight: 500;
+}
+
+.subheader-left .mono-text {
+  color: #d4d4d8;
+  font-weight: 600;
+}
+
+/* Center status beacon */
+.subheader-center {
+  gap: 8px;
+}
+
+.beacon-square {
+  width: 7px;
+  height: 7px;
+  background-color: var(--primary-accent);
+  box-shadow: 0 0 10px var(--primary-accent);
+  animation: pulseBeacon 2s infinite ease-in-out;
+}
+
+@keyframes pulseBeacon {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(182, 146, 255, 0.9);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.9);
+    box-shadow: 0 0 4px rgba(182, 146, 255, 0.35);
+  }
+}
+
+.subheader-center .mono-text.bold {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.subheader-center .separator {
+  color: #52525b;
+  margin: 0 2px;
+}
+
+.subheader-center .mono-text {
+  color: #a1a1aa;
+}
+
+/* Right time */
+.subheader-right {
+  gap: 6px;
+  color: #a1a1aa;
+}
+
+.subheader-right .time-val {
+  color: #ffffff;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 900px) {
+  .subheader-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 0 24px 0;
+  }
+  .subheader-right {
+    margin-top: 4px;
+  }
+}

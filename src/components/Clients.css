@@ -1,0 +1,381 @@
+/* Clients Section - High-Contrast Bone/Cream Ground */
+.clients-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  max-height: 100vh;
+  background-color: #ECE7DD;
+  color: #14121B;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+  z-index: 10;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+@media (max-width: 900px), (max-height: 700px) {
+  .clients-section {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    max-height: none;
+    padding: clamp(60px, 8vw, 100px) 0;
+    overflow: visible;
+  }
+}
+
+.clients-container {
+  width: 100%;
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3.2vw, 48px);
+}
+
+/* Head Section */
+.clients-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+  gap: clamp(24px, 3vw, 48px);
+  align-items: flex-end;
+  margin-bottom: clamp(28px, 3.2vw, 48px);
+}
+
+.clients-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Badge: ▪ [ CLIENTS ] */
+.clients-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  color: #14121B;
+  text-transform: uppercase;
+}
+
+.pill-cube {
+  width: 6.5px;
+  height: 6.5px;
+  background-color: var(--primary-accent);
+  box-shadow: 0 0 8px rgba(182, 146, 255, 0.6);
+  border-radius: 1px;
+  margin-right: 2px;
+}
+
+.pill-bracket {
+  color: rgba(20, 18, 27, 0.45);
+}
+
+.pill-label {
+  color: #14121B;
+}
+
+/* Big Headline */
+.clients-headline {
+  font-family: var(--font-hero);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 800;
+  font-weight: 800;
+  font-size: clamp(34px, 4.2vw, 64px);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: #14121B;
+  margin: 0;
+}
+
+.headline-accent {
+  color: var(--primary-accent);
+  /* slight dark outline or contrast on cream */
+  text-shadow: 0 0 30px rgba(182, 146, 255, 0.5);
+}
+
+/* Description Text */
+.clients-description {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #5A5866;
+  max-width: 420px;
+  justify-self: end;
+  margin: 0;
+}
+
+/* 8-Card Grid: 4 columns x 2 rows */
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(20, 18, 27, 0.16);
+  border-left: 1px solid rgba(20, 18, 27, 0.16);
+  background-color: #ECE7DD;
+}
+
+.client-cell {
+  position: relative;
+  height: clamp(120px, 9.8vw, 155px);
+  border-right: 1px solid rgba(20, 18, 27, 0.16);
+  border-bottom: 1px solid rgba(20, 18, 27, 0.16);
+  background-color: #ECE7DD;
+  overflow: hidden;
+  cursor: default;
+  transition: background-color 0.2s ease;
+  user-select: none;
+}
+
+/* Index Number */
+.cell-index {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: rgba(20, 18, 27, 0.5);
+  z-index: 5;
+}
+
+/* Cell Main Content */
+.cell-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  text-align: center;
+}
+
+/* Solutions & Product Boxes Typography */
+.solution-title {
+  font-family: var(--font-hero);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 800;
+  font-weight: 800;
+  font-size: clamp(17px, 1.5vw, 23px);
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: #14121B;
+  line-height: 1.15;
+  transition: transform 0.25s ease;
+  max-width: 92%;
+}
+
+.solution-title.is-coming-soon {
+  color: #14121B;
+  opacity: 0.85;
+}
+
+.solution-subtitle {
+  font-family: var(--font-mono);
+  font-size: clamp(9.5px, 0.78vw, 11px);
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: rgba(20, 18, 27, 0.65);
+  text-transform: uppercase;
+  margin-top: 6px;
+  max-width: 90%;
+  line-height: 1.3;
+}
+
+.solution-subtitle.badge-soon {
+  display: inline-block;
+  color: #4a2890;
+  background: rgba(182, 146, 255, 0.18);
+  border: 1px solid rgba(182, 146, 255, 0.4);
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  margin-top: 7px;
+}
+
+/* Logo Typography per client (legacy fallback) */
+.client-logo-text {
+  color: #14121B;
+  transition: transform 0.25s ease;
+}
+
+/* 01: WAYFARE */
+.client-wayfare {
+  font-family: var(--font-hero);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 800;
+  font-weight: 800;
+  font-size: clamp(22px, 2vw, 29px);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+/* 02: PULSE */
+.client-pulse {
+  font-family: var(--font-hero);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 800;
+  font-weight: 800;
+  font-size: clamp(21px, 1.8vw, 26px);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #14121B;
+  line-height: 1;
+}
+
+.client-subtitle {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  color: rgba(20, 18, 27, 0.6);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* 03: Ledgerly */
+.client-ledgerly {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(23px, 2.1vw, 30px);
+  letter-spacing: -0.04em;
+}
+
+/* 04: CAREHUB */
+.client-carehub {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(18px, 1.7vw, 24px);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+/* 05: STOCKROOM */
+.client-stockroom {
+  font-family: var(--font-hero);
+  font-stretch: 62%;
+  font-variation-settings: 'wdth' 62, 'wght' 900;
+  font-weight: 900;
+  font-size: clamp(26px, 2.4vw, 36px);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* 06: northpine */
+.client-northpine {
+  font-family: var(--font-hero);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 500;
+  font-weight: 500;
+  font-size: clamp(23px, 2.1vw, 30px);
+  letter-spacing: -0.035em;
+  text-transform: lowercase;
+}
+
+/* 07: Halcyon */
+.client-halcyon {
+  font-family: var(--font-hero);
+  font-stretch: 88%;
+  font-variation-settings: 'wdth' 88, 'wght' 700;
+  font-weight: 700;
+  font-size: clamp(23px, 2.1vw, 30px);
+  letter-spacing: -0.02em;
+}
+
+/* 08: K I T E W I R E */
+.client-kitewire {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(17px, 1.6vw, 22px);
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+}
+
+/* Interactive Hover Overlay */
+.cell-hover-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 20px;
+  background-color: var(--primary-accent);
+  color: #0E0C16;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.38s cubic-bezier(0.65, 0, 0.25, 1);
+  pointer-events: none;
+  text-align: center;
+}
+
+.client-cell:hover .cell-hover-overlay,
+.client-cell:focus-visible .cell-hover-overlay {
+  clip-path: inset(0 0 0 0);
+}
+
+.hover-name {
+  font-family: var(--font-hero);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 800;
+  font-weight: 800;
+  font-size: clamp(16px, 1.4vw, 22px);
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  color: #0E0C16;
+  max-width: 95%;
+}
+
+.hover-metric {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 0.8vw, 11.5px);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: rgba(14, 12, 22, 0.88);
+  max-width: 92%;
+  line-height: 1.3;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1099px) {
+  .clients-head {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .clients-description {
+    justify-self: start;
+  }
+  .clients-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .clients-section {
+    padding: 60px 0;
+  }
+  .clients-container {
+    padding: 0 16px;
+  }
+  .client-cell {
+    height: 120px;
+  }
+  .client-logo-text {
+    font-size: 18px !important;
+  }
+  .client-subtitle {
+    font-size: 9px;
+  }
+}

@@ -1,0 +1,377 @@
+/* ==========================================================================
+   FOOTER SECTION (Screen 13: Dark #070708 with Massive VERTEXIA Watermark)
+   ========================================================================== */
+
+.footer-section {
+  position: relative;
+  background-color: #070708;
+  color: #ECE7DD;
+  padding: clamp(90px, 9vw, 140px) 0 32px;
+  overflow: hidden;
+  z-index: 10;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-container {
+  width: 100%;
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3.2vw, 48px);
+}
+
+/* Top Area */
+.footer-top-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(40px, 5vw, 64px);
+  align-items: flex-start;
+  padding-bottom: clamp(40px, 4.5vw, 64px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Lead Left */
+.footer-lead-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-kick {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(236, 231, 221, 0.75);
+  margin: 0 0 22px;
+}
+
+.footer-kick-cube {
+  width: 7px;
+  height: 7px;
+  background-color: #b692ff;
+  display: inline-block;
+}
+
+/* Big Mail Link */
+.footer-mail-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 100%;
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(22px, 2.7vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  text-decoration: none;
+  color: #ECE7DD;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.mail-text {
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: linear-gradient(#b692ff, #b692ff) 0 100% / 0% 3px no-repeat;
+  transition: background-size 0.5s cubic-bezier(0.7, 0, 0.2, 1);
+  padding-bottom: 4px;
+}
+
+.footer-mail-link:hover .mail-text {
+  background-size: 100% 3px;
+  color: #ffffff;
+}
+
+.mail-arrow-box {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  background-color: #b692ff;
+  color: #070708;
+  border-radius: 2px;
+  transition: background-color 0.3s, color 0.3s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mail-arrow-box svg {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.footer-mail-link:hover .mail-arrow-box {
+  background-color: #ECE7DD;
+  transform: scale(1.05);
+}
+
+.footer-mail-link:hover .mail-arrow-box svg {
+  transform: translate(3px, -3px);
+}
+
+/* Live Booking & Time Strip */
+.footer-live-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  margin-top: 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(236, 231, 221, 0.72);
+}
+
+.booking-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.led-pulse {
+  width: 7px;
+  height: 7px;
+  background-color: #7CFFB2;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #7CFFB2;
+  animation: ledBlink 1.4s steps(1) infinite;
+}
+
+@keyframes ledBlink {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.time-status {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Nav Columns */
+.footer-nav-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 3vw, 36px);
+}
+
+.footer-col-heading {
+  margin: 0 0 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #b692ff;
+  font-weight: 600;
+}
+
+.footer-links-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.footer-links-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+  text-decoration: none;
+  color: rgba(236, 231, 221, 0.75);
+  transition: color 0.2s, transform 0.3s ease;
+}
+
+.footer-links-list a:hover {
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.ext-arrow {
+  font-size: 12px;
+  opacity: 0.65;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.footer-links-list a:hover .ext-arrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+/* Middle Divider Row */
+.footer-mid-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px 0 clamp(28px, 3.5vw, 48px);
+}
+
+.footer-address {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(236, 231, 221, 0.72);
+}
+
+/* Back to top button */
+.btn-back-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 6px 0 20px;
+  height: 46px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  color: #ECE7DD;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-back-top:hover {
+  background: #ECE7DD;
+  color: #070708;
+  border-color: #ECE7DD;
+}
+
+.box-top-arrow {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: #ECE7DD;
+  color: #070708;
+  border-radius: 1px;
+  transition: background 0.3s, color 0.3s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-back-top:hover .box-top-arrow {
+  background: #070708;
+  color: #b692ff;
+}
+
+.btn-back-top:hover .box-top-arrow svg {
+  transform: translateY(-2px);
+}
+
+.box-top-arrow svg {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Massive VERTEXIA Watermark */
+.footer-watermark-band {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0.75;
+  user-select: none;
+  overflow: hidden;
+  padding: 24px 0 16px;
+}
+
+.footer-watermark-text {
+  display: block;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 900;
+  font-size: clamp(68px, 15.2vw, 260px);
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+  text-transform: uppercase;
+  transition: color 0.6s ease;
+  pointer-events: none;
+}
+
+.footer-section:hover .footer-watermark-text {
+  color: rgba(182, 146, 255, 0.09);
+}
+
+/* Bottom Legal Row */
+.footer-legal-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(236, 231, 221, 0.65);
+}
+
+.legal-left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  align-items: center;
+}
+
+.legal-left a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.legal-left a:hover {
+  color: #ECE7DD;
+}
+
+.legal-right {
+  margin-left: auto;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .footer-top-row {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .footer-mail-link {
+    font-size: clamp(20px, 4.2vw, 32px);
+  }
+}
+
+@media (max-width: 680px) {
+  .footer-nav-cols {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 32px;
+  }
+
+  .footer-mid-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .footer-mail-link {
+    font-size: clamp(16px, 4.6vw, 22px);
+    gap: 12px;
+  }
+
+  .mail-arrow-box {
+    width: 42px;
+    height: 42px;
+  }
+
+  .legal-right {
+    margin-left: 0;
+  }
+}
