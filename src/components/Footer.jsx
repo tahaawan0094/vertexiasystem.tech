@@ -31,19 +31,30 @@ export default function Footer() {
               </span>
             </a>
 
-            {/* WhatsApp Contacts */}
-            <a 
-              href="https://wa.me/923172981931" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="footer-whatsapp-link"
-              aria-label="Contact on WhatsApp"
-            >
-              <span>+92 317 2981931</span>
+            {/* WhatsApp Contacts (Individually Clickable) */}
+            <div className="footer-whatsapp-row">
+              <a 
+                href="https://wa.me/923172981931" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="footer-whatsapp-link"
+                aria-label="Contact +92 317 2981931 on WhatsApp"
+              >
+                <span>+92 317 2981931</span>
+                <ArrowUpRight size={13} strokeWidth={2.2} />
+              </a>
               <span className="whatsapp-sep" aria-hidden="true">|</span>
-              <span>+92 311 3874384</span>
-              <ArrowUpRight size={14} strokeWidth={2.2} />
-            </a>
+              <a 
+                href="https://wa.me/923113874384" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="footer-whatsapp-link"
+                aria-label="Contact +92 311 3874384 on WhatsApp"
+              >
+                <span>+92 311 3874384</span>
+                <ArrowUpRight size={13} strokeWidth={2.2} />
+              </a>
+            </div>
 
             <div className="footer-live-strip">
               <span className="booking-status">

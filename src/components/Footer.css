@@ -109,25 +109,40 @@
   transform: translate(3px, -3px);
 }
 
-.footer-whatsapp-link {
+.footer-whatsapp-row {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   margin-top: 14px;
   font-family: 'JetBrains Mono', monospace;
   font-size: clamp(12.5px, 1.2vw, 15px);
   letter-spacing: 0.08em;
+}
+
+.footer-whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   color: rgba(236, 231, 221, 0.85);
   text-decoration: none;
-  transition: opacity 0.2s, color 0.2s;
+  transition: color 0.2s;
 }
 
 .footer-whatsapp-link:hover {
   color: #b692ff;
 }
 
+.footer-whatsapp-link svg {
+  transition: transform 0.25s ease;
+}
+
+.footer-whatsapp-link:hover svg {
+  transform: translate(2px, -2px);
+}
+
 .whatsapp-sep {
   opacity: 0.35;
+  color: rgba(236, 231, 221, 0.6);
 }
 
 /* Live Booking & Time Strip */
