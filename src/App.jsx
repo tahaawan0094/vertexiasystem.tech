@@ -9,7 +9,6 @@ import Process from './components/Process';
 import Impact from './components/Impact';
 import TechStack from './components/TechStack';
 import Team from './components/Team';
-import Pricing from './components/Pricing';
 import FAQ from './components/FAQ';
 import Blog from './components/Blog';
 import ContactCTA from './components/ContactCTA';
@@ -103,10 +102,7 @@ export default function App() {
       {/* Screen 8: The Team (The People Who Ship It - 4 Members) */}
       <Team />
 
-      {/* Screen 9: Pricing (Ready-To-Deploy Software Plans) */}
-      <Pricing />
-
-      {/* Screen 10: FAQ (Questions, Answered - macOS Terminal Simulator) */}
+      {/* Screen 9: FAQ (Questions, Answered - macOS Terminal Simulator) */}
       <FAQ />
 
       {/* Screen 11: Blog / Insights (Notes from the Build - 3 Editorial Cards) */}

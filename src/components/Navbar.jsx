@@ -11,9 +11,8 @@ export default function Navbar() {
     { num: '01', label: 'SERVICES', hasDropdown: true },
     { num: '02', label: 'WORK', href: '#work' },
     { num: '03', label: 'PROCESS', href: '#process' },
-    { num: '04', label: 'PRICING', href: '#pricing' },
-    { num: '05', label: 'ABOUT', href: '#about' },
-    { num: '06', label: 'BLOG', href: '#blog' },
+    { num: '04', label: 'ABOUT', href: '#about' },
+    { num: '05', label: 'BLOG', href: '#blog' },
   ];
 
   const servicesList = [
