@@ -1,31 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import CornerBracket from './CornerBracket';
 import './Footer.css';
 
 export default function Footer() {
-  const [austinTime, setAustinTime] = useState('');
-
-  useEffect(() => {
-    const updateTime = () => {
-      try {
-        const timeString = new Intl.DateTimeFormat('en-US', {
-          timeZone: 'Asia/Karachi',
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false,
-        }).format(new Date());
-        setAustinTime(timeString);
-      } catch (e) {
-        setAustinTime('15:15');
-      }
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   const scrollToTop = (e) => {
     e.preventDefault();
     window.scrollTo({
@@ -43,23 +21,37 @@ export default function Footer() {
           <div className="footer-lead-col">
             <p className="footer-kick">
               <span className="footer-kick-cube" aria-hidden="true"></span>
-              <span>Have a product in mind?</span>
+              <span>HAVE A PRODUCT IN MIND?</span>
             </p>
 
-            <a href="mailto:hello@vertexiasystem.tech" className="footer-mail-link">
-              <span className="mail-text">hello@vertexiasystem.tech</span>
+            <a href="mailto:system@vertexiasystem.tech" className="footer-mail-link">
+              <span className="mail-text">system@vertexiasystem.tech</span>
               <span className="mail-arrow-box" aria-hidden="true">
-                <ArrowUpRight size={22} strokeWidth={2.4} />
+                <ArrowUpRight size={18} strokeWidth={2.4} />
               </span>
+            </a>
+
+            {/* WhatsApp Contacts */}
+            <a 
+              href="https://wa.me/923172981931" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="footer-whatsapp-link"
+              aria-label="Contact on WhatsApp"
+            >
+              <span>+92 317 2981931</span>
+              <span className="whatsapp-sep" aria-hidden="true">|</span>
+              <span>+92 311 3874384</span>
+              <ArrowUpRight size={14} strokeWidth={2.2} />
             </a>
 
             <div className="footer-live-strip">
               <span className="booking-status">
                 <span className="led-pulse" aria-hidden="true"></span>
-                <span>Now booking Q4 builds · 2 slots left</span>
+                <span>NOW BOOKING NEW BUILDS</span>
               </span>
               <span className="time-status">
-                <span>Local time · Austin {austinTime || '06:29'}</span>
+                <span>LOCAL TIME · KARACHI, PAKISTAN</span>
               </span>
             </div>
           </div>
@@ -70,12 +62,12 @@ export default function Footer() {
             <div className="footer-col">
               <h4 className="footer-col-heading">Services</h4>
               <ul className="footer-links-list">
-                <li><a href="#services">Web apps</a></li>
-                <li><a href="#services">Mobile apps</a></li>
-                <li><a href="#services">AI features</a></li>
-                <li><a href="#services">Product design</a></li>
-                <li><a href="#services">Cloud &amp; DevOps</a></li>
-                <li><a href="#services">Dedicated teams</a></li>
+                <li><a href="#services">Web Apps</a></li>
+                <li><a href="#services">Mobile Apps</a></li>
+                <li><a href="#services">POS Systems</a></li>
+                <li><a href="#services">Product Design</a></li>
+                <li><a href="#services">Cloud &amp; Support</a></li>
+                <li><a href="#services">Custom Software</a></li>
               </ul>
             </div>
 
@@ -97,26 +89,32 @@ export default function Footer() {
               <h4 className="footer-col-heading">Social</h4>
               <ul className="footer-links-list">
                 <li>
-                  <a href="https://x.com" target="_blank" rel="noopener noreferrer">
-                    <span>X</span>
+                  <a href="https://www.facebook.com/people/Vertexia/61591263672377/" target="_blank" rel="noopener noreferrer">
+                    <span>Facebook</span>
                     <span className="ext-arrow" aria-hidden="true">↗</span>
                   </a>
                 </li>
                 <li>
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.instagram.com/vertexia_agency/" target="_blank" rel="noopener noreferrer">
+                    <span>Instagram</span>
+                    <span className="ext-arrow" aria-hidden="true">↗</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/company/vertexiaagency/" target="_blank" rel="noopener noreferrer">
                     <span>LinkedIn</span>
                     <span className="ext-arrow" aria-hidden="true">↗</span>
                   </a>
                 </li>
                 <li>
-                  <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                    <span>GitHub</span>
+                  <a href="https://x.com/vertexia_agency" target="_blank" rel="noopener noreferrer">
+                    <span>X (Twitter)</span>
                     <span className="ext-arrow" aria-hidden="true">↗</span>
                   </a>
                 </li>
                 <li>
-                  <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer">
-                    <span>Dribbble</span>
+                  <a href="https://www.pinterest.com/vertexia_agency/" target="_blank" rel="noopener noreferrer">
+                    <span>Pinterest</span>
                     <span className="ext-arrow" aria-hidden="true">↗</span>
                   </a>
                 </li>
@@ -148,19 +146,19 @@ export default function Footer() {
 
         {/* Massive Brand Watermark */}
         <div className="footer-watermark-band" aria-hidden="true">
-          <span className="footer-watermark-text">VERTEXIA</span>
+          <span className="footer-watermark-text">VERTEXIA SYSTEM</span>
         </div>
 
         {/* Bottom Legal Row */}
         <div className="footer-legal-row">
           <div className="legal-left">
             <span>© 2026 VERTEXIA</span>
-            <a href="#contact">Privacy</a>
-            <a href="#contact">Terms</a>
+            <a href="#contact">PRIVACY</a>
+            <a href="#contact">TERMS</a>
           </div>
 
           <div className="legal-right">
-            <span>Built in Pakistan, shipped worldwide</span>
+            <span>BUILT IN KARACHI, PAKISTAN · SHIPPED WORLDWIDE</span>
           </div>
         </div>
       </div>

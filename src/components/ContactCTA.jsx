@@ -36,7 +36,7 @@ export default function ContactCTA() {
             </h2>
 
             <p className="cta-subtitle">
-              Tell us what you are building. You get a reply within one business day, a free scoping call and a fixed quote for the first release.
+              Tell us what you are building. You get a reply within one business day, a free scoping call, and a fixed quote for the first release.
             </p>
 
             {submitted ? (
@@ -54,7 +54,7 @@ export default function ContactCTA() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@company.com"
+                    placeholder="enter your email..."
                     className="cta-input"
                   />
                 </div>
@@ -74,15 +74,15 @@ export default function ContactCTA() {
             <ul className="cta-trust-list">
               <li className="trust-item">
                 <span className="trust-cube" aria-hidden="true"></span>
-                <span>Reply within 1 business day</span>
+                <span>REPLY WITHIN 1 BUSINESS DAY</span>
               </li>
               <li className="trust-item">
                 <span className="trust-cube" aria-hidden="true"></span>
-                <span>Free 30-minute scoping call</span>
+                <span>FREE 30-MINUTE SCOPING CALL</span>
               </li>
               <li className="trust-item">
                 <span className="trust-cube" aria-hidden="true"></span>
-                <span>Fixed quote for the first release</span>
+                <span>FIXED QUOTE FOR THE FIRST RELEASE</span>
               </li>
             </ul>
           </div>
