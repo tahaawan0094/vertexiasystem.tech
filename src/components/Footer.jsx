@@ -12,6 +12,26 @@ export default function Footer() {
     });
   };
 
+  const handleNavClick = (e, href) => {
+    if (href === '#contact' || href === '/contact') {
+      e.preventDefault();
+      window.history.pushState({}, '', '/contact');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
+
+    if (window.location.pathname.toLowerCase() === '/contact') {
+      e.preventDefault();
+      window.history.pushState({}, '', '/' + href);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      setTimeout(() => {
+        const el = document.querySelector(href);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 150);
+    }
+  };
+
   return (
     <footer className="footer-section" aria-label="Footer">
       <div className="footer-container">
@@ -86,12 +106,12 @@ export default function Footer() {
             <div className="footer-col">
               <h4 className="footer-col-heading">Company</h4>
               <ul className="footer-links-list">
-                <li><a href="#work">Work</a></li>
-                <li><a href="#process">Process</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#work" onClick={(e) => handleNavClick(e, '#work')}>Work</a></li>
+                <li><a href="#process" onClick={(e) => handleNavClick(e, '#process')}>Process</a></li>
+                <li><a href="#pricing" onClick={(e) => handleNavClick(e, '#pricing')}>Pricing</a></li>
+                <li><a href="#about" onClick={(e) => handleNavClick(e, '#about')}>About</a></li>
+                <li><a href="#blog" onClick={(e) => handleNavClick(e, '#blog')}>Blog</a></li>
+                <li><a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>Contact</a></li>
               </ul>
             </div>
 

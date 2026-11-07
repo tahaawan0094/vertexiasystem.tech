@@ -23,10 +23,37 @@ export default function Navbar() {
     { icon: <ShieldCheck size={16} />, title: 'Enterprise Modernization', desc: 'Refactoring, cloud infra & performance' },
   ];
 
+  const handleStartProject = () => {
+    window.history.pushState({}, '', '/contact');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const handleGoHome = (e) => {
+    e.preventDefault();
+    window.history.pushState({}, '', '/');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavLinkClick = (e, href) => {
+    if (window.location.pathname.toLowerCase() === '/contact') {
+      e.preventDefault();
+      window.history.pushState({}, '', '/' + (href || ''));
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      setTimeout(() => {
+        if (href) {
+          const el = document.querySelector(href);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 150);
+    }
+  };
+
   return (
     <header className="navbar-header">
       {/* Brand Logo */}
-      <a href="/" className="brand-logo">
+      <a href="/" onClick={handleGoHome} className="brand-logo">
         <div className="logo-icon" aria-hidden="true">
           <span className="logo-square orange"></span>
           <span className="logo-square white"></span>
@@ -56,7 +83,11 @@ export default function Navbar() {
                 <ChevronDown size={13} className={`chevron-icon ${servicesOpen ? 'rotate' : ''}`} />
               </button>
             ) : (
-              <a href={item.href} className="nav-link">
+              <a 
+                href={item.href} 
+                className="nav-link"
+                onClick={(e) => handleNavLinkClick(e, item.href)}
+              >
                 <span className="nav-num">{item.num}</span>
                 <span className="nav-label">{item.label}</span>
               </a>
@@ -67,7 +98,12 @@ export default function Navbar() {
               <div className="dropdown-panel">
                 <div className="dropdown-inner">
                   {servicesList.map((service, idx) => (
-                    <a key={idx} href="#services" className="dropdown-entry">
+                    <a 
+                      key={idx} 
+                      href="#services" 
+                      className="dropdown-entry"
+                      onClick={(e) => handleNavLinkClick(e, '#services')}
+                    >
                       <div className="dropdown-entry-icon">{service.icon}</div>
                       <div>
                         <div className="dropdown-entry-title">{service.title}</div>
@@ -85,7 +121,7 @@ export default function Navbar() {
       {/* Right Action Button */}
       <div className="navbar-actions">
         <CornerBracket offset={4}>
-          <button className="cta-header-btn" onClick={() => window.open('#contact', '_self')}>
+          <button className="cta-header-btn" onClick={handleStartProject}>
             <span className="cta-btn-text">START A PROJECT</span>
             <span className="cta-icon-box">
               <ArrowUpRight size={14} strokeWidth={2.5} />
@@ -112,7 +148,10 @@ export default function Navbar() {
               key={item.num}
               href={item.href || '#services'}
               className="mobile-nav-link"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => {
+                setMobileMenuOpen(false);
+                handleNavLinkClick(e, item.href || '#services');
+              }}
             >
               <span className="nav-num">{item.num}</span>
               <span className="nav-label">{item.label}</span>
@@ -120,7 +159,10 @@ export default function Navbar() {
           ))}
           <div className="mobile-cta-wrap">
             <CornerBracket offset={4}>
-              <button className="cta-header-btn full-width" onClick={() => setMobileMenuOpen(false)}>
+              <button className="cta-header-btn full-width" onClick={() => {
+                setMobileMenuOpen(false);
+                handleStartProject();
+              }}>
                 <span className="cta-btn-text">START A PROJECT</span>
                 <span className="cta-icon-box">
                   <ArrowUpRight size={14} strokeWidth={2.5} />
