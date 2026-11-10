@@ -47,6 +47,7 @@ export default function ContactPage() {
   const [budget, setBudget] = useState('$25-60K');
   const [timeline, setTimeline] = useState(TIMELINES[0]);
   const [projectDesc, setProjectDesc] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [localTime, setLocalTime] = useState('');
 
@@ -72,17 +73,41 @@ export default function ContactPage() {
       prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
     );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !email) return;
-    // TODO: send { name, email, company, selectedTypes, budget, timeline, projectDesc }
-    // to your backend / email service here.
-    setSubmitted(true);
+    if (!name || !email || isSubmitting) return;
+    setIsSubmitting(true);
+
+    try {
+      await fetch('https://formsubmit.co/ajax/system@vertexiasystem.tech', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          company: company || 'N/A',
+          building: selectedTypes.join(', '),
+          budget: budget,
+          timeline: timeline,
+          projectDescription: projectDesc || 'N/A',
+          _subject: `New Project Brief from ${name} (${company || 'Individual'})`,
+          _template: 'table',
+        }),
+      });
+    } catch (err) {
+      console.warn('Submission notice:', err);
+    } finally {
+      setIsSubmitting(false);
+      setSubmitted(true);
+    }
   };
 
   return (
     <div className="vxc-root">
-      <div className="page-container" style={{ paddingTop: '20px' }}>
+      <div className="page-container vxc-navbar-container" style={{ paddingTop: '20px', position: 'relative', zIndex: 1000 }}>
         <Navbar />
       </div>
 
@@ -215,8 +240,8 @@ export default function ContactPage() {
 
                 <div className="vxc-submit-wrap">
                  <CornerBracket offset={3} cornerColor="#A78BFA">
-                    <button type="submit" className="vxc-submit">
-                      <span>SEND THE BRIEF</span>
+                    <button type="submit" disabled={isSubmitting} className="vxc-submit">
+                      <span>{isSubmitting ? 'SENDING...' : 'SEND THE BRIEF'}</span>
                       <span className="vxc-submit-icon">
                         <ArrowUpRight size={14} strokeWidth={2.8} />
                       </span>
@@ -283,6 +308,9 @@ export default function ContactPage() {
           </aside>
         </div>
       </main>
+
+      {/* The 3D Cube CTA Section */}
+      <ContactCTA />
 
       <Footer />
     </div>

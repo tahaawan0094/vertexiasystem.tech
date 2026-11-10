@@ -38,7 +38,14 @@
   z-index: 1;
 }
 
+.vxc-navbar-container {
+  position: relative;
+  z-index: 1000 !important;
+}
+
 .vxc-main {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 1720px;
   margin: 0 auto;

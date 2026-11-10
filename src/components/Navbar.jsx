@@ -4,22 +4,38 @@ import CornerBracket from './CornerBracket';
 import './Navbar.css';
 
 export default function Navbar() {
-  const [servicesOpen, setServicesOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { num: '01', label: 'SERVICES', hasDropdown: true },
+    { num: '01', label: 'PRODUCTS', hasDropdown: true },
     { num: '02', label: 'WORK', href: '#work' },
     { num: '03', label: 'PROCESS', href: '#process' },
-    { num: '04', label: 'ABOUT', href: '#about' },
+    { num: '04', label: 'ABOUT', href: '/about' },
     { num: '05', label: 'BLOG', href: '#blog' },
   ];
 
-  const servicesList = [
-    { icon: <Layers size={16} />, title: 'Full-Stack Web Apps', desc: 'Next.js, React, Node & Scalable APIs' },
-    { icon: <Cpu size={16} />, title: 'AI & LLM Integration', desc: 'RAG, Agentic workflows & fine-tuned models' },
-    { icon: <Sparkles size={16} />, title: 'MVP Sprint (2 Weeks)', desc: 'From zero to production launch in 14 days' },
-    { icon: <ShieldCheck size={16} />, title: 'Enterprise Modernization', desc: 'Refactoring, cloud infra & performance' },
+  const productsList = [
+    {
+      title: 'PHARMACY POS',
+      desc: 'Medicine inventory, expiry tracking, barcode billing & offline counter sync',
+      href: '#services',
+    },
+    {
+      title: 'RESTAURANT ERP',
+      desc: 'KOT management, table ordering, recipe inventory & live analytics',
+      href: '#services',
+    },
+    {
+      title: 'GARAGE CRM',
+      desc: 'Job cards, customer vehicle history, parts stock & automated invoicing',
+      href: '#services',
+    },
+    {
+      title: 'RETAIL POS',
+      desc: 'Fast multi-branch retail checkout, thermal receipt printing & ledgers',
+      href: '#services',
+    },
   ];
 
   const handleStartProject = () => {
@@ -36,16 +52,30 @@ export default function Navbar() {
   };
 
   const handleNavLinkClick = (e, href) => {
-    if (window.location.pathname.toLowerCase() === '/contact') {
+    if (href === '/about') {
+      e.preventDefault();
+      window.history.pushState({}, '', '/about');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
+    const current = window.location.pathname.toLowerCase();
+    if (current === '/contact' || current === '/about') {
       e.preventDefault();
       window.history.pushState({}, '', '/' + (href || ''));
       window.dispatchEvent(new PopStateEvent('popstate'));
       setTimeout(() => {
-        if (href) {
+        if (href && href.startsWith('#')) {
           const el = document.querySelector(href);
           if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
       }, 150);
+      return;
+    }
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -68,18 +98,18 @@ export default function Navbar() {
           <div
             key={item.num}
             className={`nav-item ${item.hasDropdown ? 'has-dropdown' : ''}`}
-            onMouseEnter={() => item.hasDropdown && setServicesOpen(true)}
-            onMouseLeave={() => item.hasDropdown && setServicesOpen(false)}
+            onMouseEnter={() => item.hasDropdown && setProductsOpen(true)}
+            onMouseLeave={() => item.hasDropdown && setProductsOpen(false)}
           >
             {item.hasDropdown ? (
               <button
                 className="nav-link dropdown-trigger"
-                onClick={() => setServicesOpen(!servicesOpen)}
-                aria-expanded={servicesOpen}
+                onClick={() => setProductsOpen(!productsOpen)}
+                aria-expanded={productsOpen}
               >
                 <span className="nav-num">{item.num}</span>
                 <span className="nav-label">{item.label}</span>
-                <ChevronDown size={13} className={`chevron-icon ${servicesOpen ? 'rotate' : ''}`} />
+                <ChevronDown size={13} className={`chevron-icon ${productsOpen ? 'rotate' : ''}`} />
               </button>
             ) : (
               <a 
@@ -92,24 +122,41 @@ export default function Navbar() {
               </a>
             )}
 
-            {/* Services Dropdown */}
-            {item.hasDropdown && servicesOpen && (
-              <div className="dropdown-panel">
-                <div className="dropdown-inner">
-                  {servicesList.map((service, idx) => (
+            {/* Products Mega-Dropdown (Xenith Pulse Style) */}
+            {item.hasDropdown && productsOpen && (
+              <div className="dropdown-panel mega-dropdown-panel">
+                <div className="mega-dropdown-grid">
+                  {productsList.map((product, idx) => (
                     <a 
                       key={idx} 
-                      href="#services" 
-                      className="dropdown-entry"
-                      onClick={(e) => handleNavLinkClick(e, '#services')}
+                      href={product.href} 
+                      className="mega-product-card"
+                      onClick={(e) => {
+                        setProductsOpen(false);
+                        handleNavLinkClick(e, product.href);
+                      }}
                     >
-                      <div className="dropdown-entry-icon">{service.icon}</div>
-                      <div>
-                        <div className="dropdown-entry-title">{service.title}</div>
-                        <div className="dropdown-entry-desc">{service.desc}</div>
+                      <div className="mega-product-header">
+                        <span className="mega-product-title">{product.title}</span>
                       </div>
+                      <p className="mega-product-desc">{product.desc}</p>
                     </a>
                   ))}
+                </div>
+                <div className="mega-dropdown-footer">
+                  <span className="mega-footer-label">READY-TO-DEPLOY SOFTWARE</span>
+                  <a
+                    href="/contact"
+                    className="mega-footer-link"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setProductsOpen(false);
+                      handleStartProject();
+                    }}
+                  >
+                    <span>START A PROJECT</span>
+                    <ArrowUpRight size={13} strokeWidth={2.4} />
+                  </a>
                 </div>
               </div>
             )}

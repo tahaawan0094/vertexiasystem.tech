@@ -5,7 +5,7 @@
   padding: 24px 0 20px 0;
   width: 100%;
   position: relative;
-  z-index: 50;
+  z-index: 1000 !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -60,6 +60,11 @@
   position: relative;
 }
 
+.nav-item.has-dropdown {
+  position: relative;
+  z-index: 1001;
+}
+
 .nav-link {
   display: inline-flex;
   align-items: center;
@@ -110,16 +115,118 @@
   top: 100%;
   left: 0;
   margin-top: 12px;
-  width: 290px;
-  background: rgba(14, 14, 18, 0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 10, 14, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.95), 0 0 40px rgba(182, 146, 255, 0.2);
+  animation: fadeInDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 99999 !important;
+}
+
+/* Products Mega-Dropdown (Xenith Pulse Style) */
+.mega-dropdown-panel {
+  width: 640px;
+  max-width: 92vw;
+}
+
+.mega-dropdown-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.mega-product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 14px 16px;
   border-radius: 6px;
-  padding: 8px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(182, 146, 255, 0.12);
-  animation: fadeInDown 0.2s ease;
-  z-index: 100;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  text-decoration: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mega-product-card:hover {
+  background: rgba(182, 146, 255, 0.08);
+  border-color: rgba(182, 146, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(182, 146, 255, 0.18);
+}
+
+.mega-product-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.mega-product-title {
+  font-family: var(--font-hero, 'Archivo', sans-serif);
+  font-stretch: 110%;
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #ffffff;
+  transition: color 0.2s ease;
+}
+
+.mega-product-card:hover .mega-product-title {
+  color: var(--primary-accent);
+}
+
+.mega-product-desc {
+  font-family: var(--font-body, sans-serif);
+  font-size: 11.5px;
+  line-height: 1.48;
+  color: #9ca3af;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.mega-product-card:hover .mega-product-desc {
+  color: #e4e4e7;
+}
+
+/* Mega Dropdown Footer */
+.mega-dropdown-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mega-footer-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  color: #71717a;
+  text-transform: uppercase;
+}
+
+.mega-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--primary-accent);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.mega-footer-link:hover {
+  color: #ffffff;
 }
 
 @keyframes fadeInDown {

@@ -21,7 +21,16 @@ export default function Footer() {
       return;
     }
 
-    if (window.location.pathname.toLowerCase() === '/contact') {
+    if (href === '#about' || href === '/about') {
+      e.preventDefault();
+      window.history.pushState({}, '', '/about');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
+
+    const current = window.location.pathname.toLowerCase();
+    if (current === '/contact' || current === '/about') {
       e.preventDefault();
       window.history.pushState({}, '', '/' + href);
       window.dispatchEvent(new PopStateEvent('popstate'));
@@ -89,16 +98,16 @@ export default function Footer() {
 
           {/* Right: 3 Nav Columns */}
           <nav className="footer-nav-cols" aria-label="Footer navigation">
-            {/* Column 1: Services */}
+            {/* Column 1: Products */}
             <div className="footer-col">
-              <h4 className="footer-col-heading">Services</h4>
+              <h4 className="footer-col-heading">Products</h4>
               <ul className="footer-links-list">
-                <li><a href="#services">Web Apps</a></li>
-                <li><a href="#services">Mobile Apps</a></li>
-                <li><a href="#services">POS Systems</a></li>
-                <li><a href="#services">Product Design</a></li>
-                <li><a href="#services">Cloud &amp; Support</a></li>
+                <li><a href="#services">Pharmacy POS</a></li>
+                <li><a href="#services">Restaurant ERP</a></li>
+                <li><a href="#services">Garage CRM</a></li>
+                <li><a href="#services">Retail POS</a></li>
                 <li><a href="#services">Custom Software</a></li>
+                <li><a href="#services">Cloud &amp; Support</a></li>
               </ul>
             </div>
 
@@ -108,9 +117,9 @@ export default function Footer() {
               <ul className="footer-links-list">
                 <li><a href="#work" onClick={(e) => handleNavClick(e, '#work')}>Work</a></li>
                 <li><a href="#process" onClick={(e) => handleNavClick(e, '#process')}>Process</a></li>
-                <li><a href="#about" onClick={(e) => handleNavClick(e, '#about')}>About</a></li>
+                <li><a href="/about" onClick={(e) => handleNavClick(e, '/about')}>About</a></li>
                 <li><a href="#blog" onClick={(e) => handleNavClick(e, '#blog')}>Blog</a></li>
-                <li><a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>Contact</a></li>
+                <li><a href="/contact" onClick={(e) => handleNavClick(e, '/contact')}>Contact</a></li>
               </ul>
             </div>
 

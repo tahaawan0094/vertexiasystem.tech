@@ -97,6 +97,7 @@
   align-items: baseline;
   gap: clamp(14px, 2.2vw, 36px);
   white-space: nowrap;
+  margin-top: clamp(24px, 4vh, 48px);
 }
 
 /* Huge Headline Text */

@@ -1,0 +1,649 @@
+/* ==========================================================================
+   ABOUT PAGE (Vertexia Studio Theme)
+   Deep dark #070708 canvas with high-contrast bone #ECE7DD sections,
+   purple accent #b692ff, JetBrains Mono, Archivo & Instrument Sans typography.
+   ========================================================================== */
+
+.about-page-root {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #070708;
+  color: #ECE7DD;
+  overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 1: HERO / STORY (Dark Canvas)
+   -------------------------------------------------------------------------- */
+
+.abt-hero-section {
+  position: relative;
+  width: 100%;
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: clamp(48px, 6vw, 96px) clamp(20px, 3.2vw, 48px) clamp(64px, 8vw, 100px);
+  z-index: 5;
+}
+
+/* Ambient Radial Glow */
+.abt-hero-glow {
+  position: absolute;
+  top: 0;
+  left: 20%;
+  width: min(800px, 70vw);
+  height: 500px;
+  background: radial-gradient(circle at 40% 30%, rgba(182, 146, 255, 0.14) 0%, rgba(182, 146, 255, 0.03) 45%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.abt-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ECE7DD;
+  margin-bottom: 22px;
+}
+
+.abt-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--primary-accent, #b692ff);
+  display: inline-block;
+  box-shadow: 0 0 10px rgba(182, 146, 255, 0.7);
+}
+
+.abt-eyebrow-bracket {
+  opacity: 0.45;
+}
+
+.abt-hero-title {
+  font-family: var(--font-hero, 'Archivo', sans-serif);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 850;
+  font-weight: 850;
+  font-size: clamp(44px, 6.2vw, 92px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0 0 clamp(40px, 5vw, 64px);
+  max-width: 1300px;
+}
+
+.abt-hero-title-accent {
+  color: var(--primary-accent, #b692ff);
+  text-shadow: 0 0 35px rgba(182, 146, 255, 0.45);
+}
+
+/* Hero Content Grid (Left Story Copy & Right Photo) */
+.abt-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: clamp(40px, 6vw, 88px);
+  align-items: center;
+  margin-bottom: clamp(60px, 8vw, 100px);
+}
+
+.abt-story-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.abt-lead-text {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: clamp(17px, 1.4vw, 21px);
+  line-height: 1.55;
+  color: #f3f3f6;
+  font-weight: 500;
+}
+
+.abt-sub-text {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.62;
+  color: #9ca3af;
+}
+
+/* Photo Box */
+.abt-photo-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.abt-photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #111215;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.abt-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(110%);
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.abt-photo-frame:hover .abt-photo-img {
+  filter: grayscale(0%) contrast(100%);
+  transform: scale(1.02);
+}
+
+.abt-photo-caption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #71717a;
+  text-transform: uppercase;
+}
+
+/* Stats Row */
+.abt-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding-top: clamp(32px, 4vw, 48px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.abt-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.abt-stat-num {
+  font-family: var(--font-hero, 'Archivo', sans-serif);
+  font-size: clamp(38px, 4.2vw, 64px);
+  font-weight: 850;
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.abt-stat-label {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #71717a;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 2: FOUR RULES WE DO NOT BEND (High-Contrast Bone #ECE7DD Canvas)
+   -------------------------------------------------------------------------- */
+
+.abt-rules-section {
+  position: relative;
+  background-color: #ECE7DD;
+  color: #070708;
+  padding: clamp(80px, 9vw, 130px) 0;
+  overflow: hidden;
+}
+
+.abt-rules-container {
+  width: 100%;
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3.2vw, 48px);
+}
+
+.abt-rules-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  margin-bottom: clamp(48px, 6vw, 72px);
+}
+
+.abt-rules-title {
+  font-family: var(--font-hero, 'Archivo', sans-serif);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 850;
+  font-weight: 850;
+  font-size: clamp(36px, 4.6vw, 68px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #070708;
+  margin: 12px 0 0;
+}
+
+.abt-rules-sub {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: clamp(14.5px, 1.15vw, 16.5px);
+  line-height: 1.5;
+  color: #52525b;
+  max-width: 440px;
+  margin: 0;
+}
+
+/* 4 Rules Grid */
+.abt-rules-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.abt-rule-card {
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 2px;
+  padding: clamp(24px, 2.5vw, 36px) clamp(20px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 320px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.abt-rule-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+  border-color: rgba(182, 146, 255, 0.6);
+}
+
+.abt-rule-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.abt-rule-num {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #71717a;
+}
+
+.abt-rule-square {
+  width: 7px;
+  height: 7px;
+  background-color: #070708;
+  border-radius: 1px;
+}
+
+.abt-rule-card:hover .abt-rule-square {
+  background-color: var(--primary-accent, #b692ff);
+}
+
+.abt-rule-body {
+  margin-top: auto;
+}
+
+.abt-rule-title {
+  font-family: var(--font-hero, 'Archivo', sans-serif);
+  font-stretch: 110%;
+  font-size: clamp(17px, 1.4vw, 21px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: #070708;
+  margin: 0 0 12px;
+}
+
+.abt-rule-desc {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #52525b;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 3: TIMELINE / YEARS OF SHIPPING (Bone #ECE7DD Canvas)
+   -------------------------------------------------------------------------- */
+
+.abt-timeline-section {
+  position: relative;
+  background-color: #ECE7DD;
+  color: #070708;
+  padding: 0 0 clamp(80px, 9vw, 130px);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.abt-timeline-container {
+  width: 100%;
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3.2vw, 48px);
+}
+
+.abt-timeline-header {
+  margin-bottom: clamp(40px, 5vw, 60px);
+}
+
+.abt-timeline-title {
+  font-family: var(--font-hero, 'Archivo', sans-serif);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 850;
+  font-weight: 850;
+  font-size: clamp(34px, 4.4vw, 64px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #070708;
+  margin: 12px 0 0;
+}
+
+.abt-timeline-accent {
+  color: #7c4dff;
+}
+
+/* Timeline Horizontal Strip */
+.abt-timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  position: relative;
+}
+
+.abt-timeline-grid::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.abt-milestone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  z-index: 2;
+}
+
+.abt-milestone-dot {
+  position: absolute;
+  top: 18px;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #070708;
+  border: 3px solid #ECE7DD;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.abt-milestone:hover .abt-milestone-dot {
+  background: #7c4dff;
+  transform: scale(1.3);
+}
+
+.abt-milestone-year {
+  font-family: var(--font-hero, 'Archivo', sans-serif);
+  font-size: clamp(26px, 2.8vw, 38px);
+  font-weight: 850;
+  line-height: 1;
+  color: #070708;
+  margin-bottom: 8px;
+}
+
+.abt-milestone.is-current .abt-milestone-year {
+  color: #7c4dff;
+}
+
+.abt-milestone-title {
+  font-family: var(--font-hero, 'Archivo', sans-serif);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #070708;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+  letter-spacing: 0.02em;
+}
+
+.abt-milestone-desc {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #52525b;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 4: TESTIMONIALS / CLIENT PROOF (Dark Canvas #070708)
+   -------------------------------------------------------------------------- */
+
+.abt-proof-section {
+  position: relative;
+  background-color: #070708;
+  color: #ECE7DD;
+  padding: clamp(90px, 10vw, 140px) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.abt-proof-container {
+  width: 100%;
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3.2vw, 48px);
+}
+
+.abt-proof-header {
+  margin-bottom: clamp(48px, 6vw, 72px);
+}
+
+.abt-proof-title {
+  font-family: var(--font-hero, 'Archivo', sans-serif);
+  font-stretch: 125%;
+  font-variation-settings: 'wdth' 125, 'wght' 850;
+  font-weight: 850;
+  font-size: clamp(36px, 4.8vw, 72px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 12px 0 0;
+}
+
+.abt-proof-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(360px, 1.15fr);
+  gap: clamp(32px, 5vw, 64px);
+  align-items: stretch;
+}
+
+/* Client Selector Column */
+.abt-client-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.abt-client-tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #a1a1aa;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.abt-client-tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.abt-client-tab.is-active {
+  background: rgba(182, 146, 255, 0.08);
+  border-color: var(--primary-accent, #b692ff);
+  color: #ffffff;
+}
+
+.abt-tab-title {
+  font-family: var(--font-hero, 'Archivo', sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.abt-tab-cat {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  color: #71717a;
+  text-transform: uppercase;
+}
+
+.abt-client-tab.is-active .abt-tab-cat {
+  color: var(--primary-accent, #b692ff);
+}
+
+/* Terminal / Quote Window */
+.abt-quote-terminal {
+  position: relative;
+  background: #0d0d11;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(182, 146, 255, 0.08);
+}
+
+.abt-terminal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 24px;
+}
+
+.abt-traffic-lights {
+  display: flex;
+  gap: 6px;
+}
+
+.abt-tl-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.abt-tl-dot.purple {
+  background: var(--primary-accent, #b692ff);
+  box-shadow: 0 0 8px rgba(182, 146, 255, 0.6);
+}
+
+.abt-terminal-tag {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: #71717a;
+  text-transform: uppercase;
+}
+
+.abt-quote-text {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: clamp(18px, 1.5vw, 23px);
+  line-height: 1.55;
+  color: #ffffff;
+  margin: 0 0 28px;
+  font-weight: 500;
+}
+
+.abt-quote-author {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.abt-author-name {
+  font-family: var(--font-hero, 'Archivo', sans-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.abt-author-role {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11.5px;
+  color: #9ca3af;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE QUERIES
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .abt-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .abt-rules-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .abt-timeline-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .abt-timeline-grid::before {
+    display: none;
+  }
+  .abt-proof-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .abt-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .abt-rules-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 580px) {
+  .abt-rules-grid {
+    grid-template-columns: 1fr;
+  }
+  .abt-timeline-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

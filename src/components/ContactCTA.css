@@ -238,48 +238,15 @@
   flex-shrink: 0;
 }
 
-/* Right Column: Isometric 3D Scene */
+/* Right Column: Interactive 3D Cube Scene Area */
 .cta-graphic-col {
+  position: relative;
+  width: 100%;
+  height: min(78vh, 720px);
+  min-height: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-}
-
-.isometric-scene {
-  width: 100%;
-  max-width: 580px;
-  aspect-ratio: 1;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.isometric-svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.8));
-  animation: floatScene 8s ease-in-out infinite;
-}
-
-/* Floating animation for subtle futuristic effect */
-@keyframes floatScene {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-
-.cube-hero-purple {
-  transition: transform 0.5s ease;
-}
-
-.isometric-scene:hover .cube-hero-purple {
-  transform: translate(285px, 235px);
 }
 
 /* Screen reader only utility */
@@ -310,8 +277,15 @@
   }
 
   .cta-graphic-col {
-    max-width: 440px;
+    height: 420px;
+    max-width: 100%;
     margin: 0 auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .cta-graphic-col {
+    height: 420px;
   }
 }
 

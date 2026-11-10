@@ -14,6 +14,7 @@ import Blog from './components/Blog';
 import ContactCTA from './components/ContactCTA';
 import Footer from './components/Footer';
 import ContactPage from './components/ContactPage';
+import AboutPage from './components/AboutPage';
 import { AnimatedGridPattern } from '@/components/ui/animated-grid-pattern';
 import './App.css';
 
@@ -22,7 +23,9 @@ export default function App() {
     if (typeof window !== 'undefined') {
       const p = window.location.pathname.toLowerCase();
       const h = window.location.hash.toLowerCase();
-      return p.startsWith('/contact') || h === '#contact-page' ? '/contact' : '/';
+      if (p.startsWith('/contact') || h === '#contact-page') return '/contact';
+      if (p.startsWith('/about') || h === '#about-page') return '/about';
+      return '/';
     }
     return '/';
   });
@@ -33,6 +36,9 @@ export default function App() {
       const h = window.location.hash.toLowerCase();
       if (p.startsWith('/contact') || h === '#contact-page') {
         setCurrentPath('/contact');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      } else if (p.startsWith('/about') || h === '#about-page') {
+        setCurrentPath('/about');
         window.scrollTo({ top: 0, behavior: 'instant' });
       } else {
         setCurrentPath('/');
@@ -50,6 +56,11 @@ export default function App() {
   // Dedicated Contact Page View
   if (currentPath === '/contact') {
     return <ContactPage />;
+  }
+
+  // Dedicated About Page View
+  if (currentPath === '/about') {
+    return <AboutPage />;
   }
 
   // Home Page View
