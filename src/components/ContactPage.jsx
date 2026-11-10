@@ -309,9 +309,6 @@ export default function ContactPage() {
         </div>
       </main>
 
-      {/* The 3D Cube CTA Section */}
-      <ContactCTA />
-
       <Footer />
     </div>
   );

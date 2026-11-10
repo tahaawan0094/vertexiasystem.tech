@@ -9,40 +9,30 @@ import './AboutPage.css';
 const TESTIMONIALS = [
   {
     id: 'medkit',
-    client: 'Pharmacy POS ',
+    client: 'Medkit Pharmacy',
     category: 'PHARMACY POS & INVENTORY',
     quote:
       'Vertexia felt like our own engineering team from week one. They shipped our pharmacy POS with full expiry tracking and barcode sync in under 4 weeks without a single bug on launch day.',
-    author: 'Riyaz Ahmed Sheikh',
-    role: 'Owner · Noor Pharamacy',
+    author: 'Dr. Tariq Mansoor',
+    role: 'MANAGING DIRECTOR · MEDKIT PHARMA',
   },
-  
+  {
+    id: 'caferoyale',
+    client: 'Cafe Royale',
+    category: 'RESTAURANT ERP & TABLE POS',
+    quote:
+      'Our kitchen order ticket (KOT) delay dropped to zero. Table orders instantly sync with the chef station and the counter registers keep running even during local internet outages.',
+    author: 'Hamza Siddiqui',
+    role: 'OPERATIONS HEAD · CAFE ROYALE',
+  },
   {
     id: 'autodrive',
-    client: 'Garage CRM',
+    client: 'AutoDrive Garage',
     category: 'WORKSHOP MANAGEMENT CRM',
     quote:
       'The automated job card system and WhatsApp invoice delivery completely modernized our garage workflow. Customers love the transparent tracking and instant cost estimates.',
-    author: 'Muddasir Daudpota',
-    role: 'FOUNDER & CEO · AL Watan Garage, Doha Qatar',
-  },
-  {
-    id: 'hyperretail',
-    client: 'HyperRetail PK',
-    category: 'MULTI-BRANCH RETAIL POS',
-    quote:
-      'Fast checkout, reliable offline backup, and seamless stock ledger sync across three busy store locations. Best technology investment we made for our business this year.',
-    author: 'Bilal Qureshi',
-    role: 'RETAIL OPERATIONS DIRECTOR · HYPERRETAIL',
-  },
-  {
-    id: 'swiftlogistics',
-    client: 'SwiftLogistics',
-    category: 'REAL-TIME DISPATCH ENGINE',
-    quote:
-      'They delivered high-throughput fleet tracking APIs on AWS with zero downtime. Scope was strictly respected, communication was crystal clear, and deadlines were beaten.',
-    author: 'Sarah Khan',
-    role: 'VP OF TECHNOLOGY · SWIFTLOGISTICS',
+    author: 'Farooq Ahmed',
+    role: 'FOUNDER & CEO · AUTODRIVE GARAGE',
   },
 ];
 
@@ -71,29 +61,19 @@ const RULES = [
 
 const TIMELINE = [
   {
-    year: '2022',
-    title: 'FIRST MVP RELEASE',
-    desc: 'Began building lightweight bespoke systems and business utility tools for local Pakistani vendors.',
-  },
-  {
-    year: '2023',
-    title: 'POS & ERP ENGINES',
-    desc: 'Engineered high-throughput pharmacy and restaurant POS engines operating seamlessly offline.',
-  },
-  {
     year: '2024',
     title: 'STUDIO FOUNDED',
-    desc: 'Formally established Vertexia as an independent software development studio in Karachi.',
+    desc: 'Formally established Vertexia as an independent software development studio in Karachi with a core engineering pod.',
   },
   {
     year: '2025',
-    title: 'AI & SCALE SYSTEMS',
-    desc: 'Integrated custom LLMs, automated agentic pipelines, and multi-branch database synchronization.',
+    title: 'POS & SCALE SYSTEMS',
+    desc: 'Engineered high-throughput pharmacy, restaurant and garage management systems operating seamlessly offline and online.',
   },
   {
     year: '2026',
     title: 'SHIPPING WORLDWIDE',
-    desc: 'Deploying robust production applications, enterprise POS architectures, and full-stack software globally.',
+    desc: 'Deploying robust production applications, enterprise POS architectures, and custom full-stack software globally.',
     isCurrent: true,
   },
 ];
@@ -169,16 +149,16 @@ export default function AboutPage() {
             <span className="abt-stat-label">FOUNDED IN KARACHI</span>
           </div>
           <div className="abt-stat-item">
-            <span className="abt-stat-num">38</span>
-            <span className="abt-stat-label">SPRINTS SHIPPED</span>
+            <span className="abt-stat-num">10+</span>
+            <span className="abt-stat-label">SYSTEMS DELIVERED</span>
           </div>
           <div className="abt-stat-item">
             <span className="abt-stat-num">140K+</span>
             <span className="abt-stat-label">LINES OF CODE</span>
           </div>
           <div className="abt-stat-item">
-            <span className="abt-stat-num">9</span>
-            <span className="abt-stat-label">CORE ENGINEERS</span>
+            <span className="abt-stat-num">4</span>
+            <span className="abt-stat-label">DEVELOPERS</span>
           </div>
         </div>
       </section>
@@ -233,7 +213,7 @@ export default function AboutPage() {
               <span className="abt-eyebrow-bracket">]</span>
             </div>
             <h2 className="abt-timeline-title">
-              YEARS OF <span className="abt-timeline-accent">SHIPPING</span>
+              YEARS OF <span className="abt-timeline-accent">SHIPPING</span> (2024 – 2026)
             </h2>
           </div>
 
