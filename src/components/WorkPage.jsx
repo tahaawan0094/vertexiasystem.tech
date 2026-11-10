@@ -1,33 +1,11 @@
 import React, { useEffect } from 'react';
 import Navbar from './Navbar';
+import PixelDigits from './PixelDigits';
 import Impact from './Impact';
 import FAQ from './FAQ';
 import ContactCTA from './ContactCTA';
 import Footer from './Footer';
 import './WorkPage.css';
-
-// 6x8 LED Matrix Bitmaps for Digits 0 and 3
-const DIGIT_0 = [
-  [1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 0, 1, 1],
-  [1, 1, 0, 0, 1, 1],
-  [1, 1, 0, 1, 1, 1],
-  [1, 0, 0, 1, 1, 1],
-  [1, 0, 1, 1, 1, 1],
-  [1, 1, 0, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1],
-];
-
-const DIGIT_3 = [
-  [1, 1, 1, 1, 1, 1],
-  [0, 0, 0, 0, 1, 1],
-  [0, 0, 0, 0, 1, 1],
-  [0, 1, 1, 1, 1, 1],
-  [0, 0, 0, 0, 1, 1],
-  [0, 0, 0, 0, 1, 1],
-  [0, 0, 0, 0, 1, 1],
-  [1, 1, 1, 1, 1, 1],
-];
 
 const PHASES = [
   {
@@ -58,7 +36,11 @@ const PHASES = [
 
 export default function WorkPage() {
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
   }, []);
 
   return (
@@ -75,13 +57,20 @@ export default function WorkPage() {
         <div className="wrk-hero-glow" aria-hidden="true" />
 
         <div className="wrk-hero-grid">
-          {/* Left Column: Heading, Subtext & Stats */}
+          {/* Left Column: Breadcrumb, Eyebrow, Heading, Subtext & Stats Strip */}
           <div className="wrk-hero-left">
+            <div className="wrk-breadcrumb">
+              <span>HOME</span>
+              <span className="wrk-bc-sep">/</span>
+              <span>PROCESS</span>
+            </div>
+
             <div className="wrk-eyebrow">
               <span className="wrk-eyebrow-dot" aria-hidden="true" />
               <span className="wrk-eyebrow-bracket">[</span>
-              <span>THE PROCESS</span>
+              <span>03</span>
               <span className="wrk-eyebrow-bracket">]</span>
+              <span>PROCESS</span>
             </div>
 
             <h1 className="wrk-hero-title">
@@ -90,62 +79,30 @@ export default function WorkPage() {
             </h1>
 
             <p className="wrk-hero-sub">
-              The exact path we take to turn your brief into production-ready software, one working sprint at a time.
+              One board you can see, a demo every two weeks and a fixed quote for the first release. No black box.
             </p>
 
-            <div className="wrk-stats-row">
-              <div className="wrk-stat-item">
-                <span className="wrk-stat-num">8 wk</span>
-                <span className="wrk-stat-label">AVG TIME TO LAUNCH</span>
+            <div className="wrk-stats-strip">
+              <div className="wrk-stat-col">
+                <span className="wrk-stat-label">TO AN MVP</span>
+                <span className="wrk-stat-num wrk-stat-accent">8 wk</span>
               </div>
-              <div className="wrk-stat-item">
+              <div className="wrk-stat-divider" aria-hidden="true" />
+              <div className="wrk-stat-col">
+                <span className="wrk-stat-label">SPRINTS</span>
                 <span className="wrk-stat-num">2 wk</span>
-                <span className="wrk-stat-label">FIRST WORKING RELEASE</span>
               </div>
-              <div className="wrk-stat-item">
-                <span className="wrk-stat-num">1 day</span>
+              <div className="wrk-stat-divider" aria-hidden="true" />
+              <div className="wrk-stat-col">
                 <span className="wrk-stat-label">REPLY TIME</span>
+                <span className="wrk-stat-num">1 day</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Retro LED Pixel Matrix (03 Process Indicator) */}
+          {/* Right Column: Pixel Digits Component */}
           <div className="wrk-hero-right">
-            <div className="wrk-matrix-chassis" aria-hidden="true">
-              <div className="wrk-matrix-header">
-                <span className="wrk-matrix-tag">SYSTEM // VELOCITY MATRIX</span>
-                <div className="wrk-matrix-live">
-                  <span className="wrk-live-dot" />
-                  <span>ONLINE</span>
-                </div>
-              </div>
-
-              <div className="wrk-matrix-display">
-                {/* Digit 0 (White Glowing Pixels) */}
-                <div className="wrk-digit-grid">
-                  {DIGIT_0.map((row, rIdx) =>
-                    row.map((active, cIdx) => (
-                      <div
-                        key={`d0-${rIdx}-${cIdx}`}
-                        className={`wrk-pixel ${active ? 'active-white' : ''}`}
-                      />
-                    ))
-                  )}
-                </div>
-
-                {/* Digit 3 (Vertexia Purple Glowing Pixels) */}
-                <div className="wrk-digit-grid">
-                  {DIGIT_3.map((row, rIdx) =>
-                    row.map((active, cIdx) => (
-                      <div
-                        key={`d3-${rIdx}-${cIdx}`}
-                        className={`wrk-pixel ${active ? 'active-purple' : ''}`}
-                      />
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
+            <PixelDigits value="03" />
           </div>
         </div>
       </section>
@@ -216,4 +173,3 @@ export default function WorkPage() {
     </div>
   );
 }
-

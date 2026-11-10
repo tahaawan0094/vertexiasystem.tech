@@ -41,14 +41,16 @@ export default function Navbar() {
   const handleStartProject = () => {
     window.history.pushState({}, '', '/contact');
     window.dispatchEvent(new PopStateEvent('popstate'));
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+    else window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleGoHome = (e) => {
     e.preventDefault();
     window.history.pushState({}, '', '/');
     window.dispatchEvent(new PopStateEvent('popstate'));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.__lenis) window.__lenis.scrollTo(0, { duration: 1.4 });
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleNavLinkClick = (e, href) => {
@@ -56,14 +58,16 @@ export default function Navbar() {
       e.preventDefault();
       window.history.pushState({}, '', '/about');
       window.dispatchEvent(new PopStateEvent('popstate'));
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+      else window.scrollTo({ top: 0, behavior: 'instant' });
       return;
     }
     if (href === '/work' || href === '/process') {
       e.preventDefault();
       window.history.pushState({}, '', '/work');
       window.dispatchEvent(new PopStateEvent('popstate'));
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+      else window.scrollTo({ top: 0, behavior: 'instant' });
       return;
     }
     const current = window.location.pathname.toLowerCase();
@@ -74,7 +78,10 @@ export default function Navbar() {
       setTimeout(() => {
         if (href && href.startsWith('#')) {
           const el = document.querySelector(href);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
+          if (el) {
+            if (window.__lenis) window.__lenis.scrollTo(el, { offset: -20, duration: 1.3 });
+            else el.scrollIntoView({ behavior: 'smooth' });
+          }
         }
       }, 150);
       return;
@@ -82,7 +89,10 @@ export default function Navbar() {
     if (href && href.startsWith('#')) {
       e.preventDefault();
       const el = document.querySelector(href);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      if (el) {
+        if (window.__lenis) window.__lenis.scrollTo(el, { offset: -20, duration: 1.3 });
+        else el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 

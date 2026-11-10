@@ -1,0 +1,33 @@
+.pxd {
+  --px-cell: clamp(14px, 2.2vw, 32px);
+  --px-light: #ffffff;   /* first digit */
+  --px-accent: #b692ff;  /* second digit (site purple) */
+  --px-off: #17171a;     /* dark / unlit cells */
+
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--px-cell) * 0.75);
+}
+
+.pxd-digit {
+  display: grid;
+  grid-template-columns: repeat(5, var(--px-cell));
+  grid-auto-rows: var(--px-cell);
+  gap: calc(var(--px-cell) * 0.125);
+}
+
+.pxd-cell {
+  background: var(--px-off);
+}
+
+.pxd-cell.on {
+  background: var(--px-on);
+}
+
+@media (max-width: 900px) {
+  .pxd {
+    --px-cell: clamp(14px, 5vw, 26px);
+    justify-content: flex-start;
+  }
+}
+

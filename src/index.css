@@ -40,8 +40,6 @@ html {
   color: var(--text-white);
   font-family: var(--font-body);
   overflow-x: hidden;
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
 }
 
 body {

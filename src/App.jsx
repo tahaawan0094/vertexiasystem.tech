@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import Navbar from './components/Navbar';
 import SubHeader from './components/SubHeader';
 import Hero from './components/Hero';
@@ -32,19 +34,51 @@ export default function App() {
     return '/';
   });
 
+  // Initialize Lenis for weighted, physical smooth scrolling across the entire site
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.3,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.2,
+      infinite: false,
+    });
+
+    window.__lenis = lenis;
+
+    let rafId;
+    function raf(time) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      window.__lenis = null;
+    };
+  }, []);
+
   useEffect(() => {
     const handleLocationChange = () => {
       const p = window.location.pathname.toLowerCase();
       const h = window.location.hash.toLowerCase();
       if (p.startsWith('/contact') || h === '#contact-page') {
         setCurrentPath('/contact');
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+        else window.scrollTo({ top: 0, behavior: 'instant' });
       } else if (p.startsWith('/about') || h === '#about-page') {
         setCurrentPath('/about');
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+        else window.scrollTo({ top: 0, behavior: 'instant' });
       } else if (p.startsWith('/work') || p.startsWith('/process') || h === '#work-page' || h === '#process-page') {
         setCurrentPath('/work');
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+        else window.scrollTo({ top: 0, behavior: 'instant' });
       } else {
         setCurrentPath('/');
       }
