@@ -9,8 +9,8 @@ export default function Navbar() {
 
   const navLinks = [
     { num: '01', label: 'PRODUCTS', hasDropdown: true },
-    { num: '02', label: 'WORK', href: '#work' },
-    { num: '03', label: 'PROCESS', href: '#process' },
+    { num: '02', label: 'WORK', href: '/work' },
+    { num: '03', label: 'PROCESS', href: '/work' },
     { num: '04', label: 'ABOUT', href: '/about' },
     { num: '05', label: 'BLOG', href: '#blog' },
   ];
@@ -59,8 +59,15 @@ export default function Navbar() {
       window.scrollTo({ top: 0, behavior: 'instant' });
       return;
     }
+    if (href === '/work' || href === '/process') {
+      e.preventDefault();
+      window.history.pushState({}, '', '/work');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
     const current = window.location.pathname.toLowerCase();
-    if (current === '/contact' || current === '/about') {
+    if (current === '/contact' || current === '/about' || current === '/work' || current === '/process') {
       e.preventDefault();
       window.history.pushState({}, '', '/' + (href || ''));
       window.dispatchEvent(new PopStateEvent('popstate'));

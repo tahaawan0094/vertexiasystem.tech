@@ -29,8 +29,16 @@ export default function Footer() {
       return;
     }
 
+    if (href === '#work' || href === '/work' || href === '#process' || href === '/process') {
+      e.preventDefault();
+      window.history.pushState({}, '', '/work');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
+
     const current = window.location.pathname.toLowerCase();
-    if (current === '/contact' || current === '/about') {
+    if (current === '/contact' || current === '/about' || current === '/work' || current === '/process') {
       e.preventDefault();
       window.history.pushState({}, '', '/' + href);
       window.dispatchEvent(new PopStateEvent('popstate'));
@@ -115,8 +123,8 @@ export default function Footer() {
             <div className="footer-col">
               <h4 className="footer-col-heading">Company</h4>
               <ul className="footer-links-list">
-                <li><a href="#work" onClick={(e) => handleNavClick(e, '#work')}>Work</a></li>
-                <li><a href="#process" onClick={(e) => handleNavClick(e, '#process')}>Process</a></li>
+                <li><a href="/work" onClick={(e) => handleNavClick(e, '/work')}>Work</a></li>
+                <li><a href="/work" onClick={(e) => handleNavClick(e, '/work')}>Process</a></li>
                 <li><a href="/about" onClick={(e) => handleNavClick(e, '/about')}>About</a></li>
                 <li><a href="#blog" onClick={(e) => handleNavClick(e, '#blog')}>Blog</a></li>
                 <li><a href="/contact" onClick={(e) => handleNavClick(e, '/contact')}>Contact</a></li>
