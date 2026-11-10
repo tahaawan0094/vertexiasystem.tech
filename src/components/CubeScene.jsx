@@ -114,20 +114,44 @@ export default function CubeScene() {
 
     const ease = (t) => { const x = Math.max(0, Math.min(1, t)); return x * x * (3 - 2 * x); };
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let mx = 0; let my = 0; let tx = 0; let ty = 0; let open = 0; let want = 0;
+    let mx = 0; let my = 0; let tx = 0; let ty = 0; let open = 0;
+    let isHovered = false;
+    let scrollWant = 0;
 
     // Hover (mouse) opens the cube, leaving closes it; tap toggles on touch screens
     const onMove = (e) => { tx = (e.clientX / window.innerWidth - 0.5) * 2; ty = (e.clientY / window.innerHeight - 0.5) * 2; };
-    const onEnter = (e) => { if (e.pointerType === 'mouse') want = 1; };
-    const onLeave = (e) => { if (e.pointerType === 'mouse') want = 0; };
-    const onDown = (e) => { if (e.pointerType !== 'mouse') want = want ? 0 : 1; };
+    const onEnter = (e) => { if (e.pointerType === 'mouse') isHovered = true; };
+    const onLeave = (e) => { if (e.pointerType === 'mouse') isHovered = false; };
+    const onDown = (e) => { if (e.pointerType !== 'mouse') isHovered = !isHovered; };
     window.addEventListener('pointermove', onMove);
     stage.addEventListener('pointerenter', onEnter);
     stage.addEventListener('pointerleave', onLeave);
     stage.addEventListener('pointerdown', onDown);
 
+    // Scroll tracking: opens as user scrolls down towards/into section, closes as they scroll back up
+    const updateScroll = () => {
+      if (!stage) return;
+      const rect = stage.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      if (rect.top >= vh || rect.bottom <= 0) {
+        scrollWant = 0;
+        return;
+      }
+      // Linear entry progression: starts at 95% vh, fully open by 35% vh
+      const startY = vh * 0.95;
+      const endY = vh * 0.35;
+      const p = (startY - rect.top) / (startY - endY);
+      scrollWant = Math.max(0, Math.min(1, p));
+    };
+
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    updateScroll();
+
     function frame(t) {
-      open += (want - open) * 0.07;
+      updateScroll();
+      const want = isHovered ? 1 : scrollWant;
+      open += (want - open) * 0.08;
       const e = ease(open);
       mx += (tx - mx) * 0.05;
       my += (ty - my) * 0.05;
@@ -162,6 +186,7 @@ export default function CubeScene() {
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      window.removeEventListener('scroll', updateScroll);
       window.removeEventListener('pointermove', onMove);
       stage.removeEventListener('pointerenter', onEnter);
       stage.removeEventListener('pointerleave', onLeave);

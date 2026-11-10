@@ -9,8 +9,8 @@ export default function Navbar() {
 
   const navLinks = [
     { num: '01', label: 'PRODUCTS', hasDropdown: true },
-    { num: '02', label: 'WORK', href: '/work' },
-    { num: '03', label: 'PROCESS', href: '/work' },
+    { num: '02', label: 'PROCESS', href: '/process' },
+    { num: '03', label: 'PRICING', href: '/pricing' },
     { num: '04', label: 'ABOUT', href: '/about' },
     { num: '05', label: 'BLOG', href: '#blog' },
   ];
@@ -62,16 +62,24 @@ export default function Navbar() {
       else window.scrollTo({ top: 0, behavior: 'instant' });
       return;
     }
-    if (href === '/work' || href === '/process') {
+    if (href === '/pricing') {
       e.preventDefault();
-      window.history.pushState({}, '', '/work');
+      window.history.pushState({}, '', '/pricing');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+      else window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
+    if (href === '/process' || href === '/work') {
+      e.preventDefault();
+      window.history.pushState({}, '', '/process');
       window.dispatchEvent(new PopStateEvent('popstate'));
       if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
       else window.scrollTo({ top: 0, behavior: 'instant' });
       return;
     }
     const current = window.location.pathname.toLowerCase();
-    if (current === '/contact' || current === '/about' || current === '/work' || current === '/process') {
+    if (current === '/contact' || current === '/about' || current === '/process' || current === '/pricing' || current === '/work') {
       e.preventDefault();
       window.history.pushState({}, '', '/' + (href || ''));
       window.dispatchEvent(new PopStateEvent('popstate'));

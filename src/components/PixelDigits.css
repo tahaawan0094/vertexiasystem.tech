@@ -2,7 +2,7 @@
   --px-cell: clamp(14px, 2.2vw, 32px);
   --px-light: #ffffff;   /* first digit */
   --px-accent: #b692ff;  /* second digit (site purple) */
-  --px-off: #17171a;     /* dark / unlit cells */
+  --px-off: transparent; /* seamless transparent unlit cells - no black border */
 
   display: flex;
   justify-content: center;

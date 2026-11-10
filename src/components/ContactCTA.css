@@ -54,8 +54,9 @@
   gap: 6px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
+  font-weight: 600;
   letter-spacing: 0.14em;
-  color: #ECE7DD;
+  color: #ffffff;
   text-transform: uppercase;
   margin-bottom: 20px;
 }
@@ -69,7 +70,14 @@
 }
 
 .cta-pill .pill-bracket {
-  opacity: 0.55;
+  color: #b692ff;
+  opacity: 0.85;
+}
+
+.cta-pill .pill-label {
+  color: #ffffff !important;
+  font-weight: 600;
+  letter-spacing: 0.14em;
 }
 
 .cta-headline {

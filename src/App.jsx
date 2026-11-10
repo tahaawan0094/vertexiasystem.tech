@@ -17,7 +17,8 @@ import ContactCTA from './components/ContactCTA';
 import Footer from './components/Footer';
 import ContactPage from './components/ContactPage';
 import AboutPage from './components/AboutPage';
-import WorkPage from './components/WorkPage';
+import ProcessPage from './components/ProcessPage';
+import PricingPage from './components/PricingPage';
 import { AnimatedGridPattern } from '@/components/ui/animated-grid-pattern';
 import './App.css';
 
@@ -28,7 +29,8 @@ export default function App() {
       const h = window.location.hash.toLowerCase();
       if (p.startsWith('/contact') || h === '#contact-page') return '/contact';
       if (p.startsWith('/about') || h === '#about-page') return '/about';
-      if (p.startsWith('/work') || p.startsWith('/process') || h === '#work-page' || h === '#process-page') return '/work';
+      if (p.startsWith('/process') || p.startsWith('/work') || h === '#process-page' || h === '#work-page') return '/process';
+      if (p.startsWith('/pricing') || h === '#pricing-page') return '/pricing';
       return '/';
     }
     return '/';
@@ -75,8 +77,12 @@ export default function App() {
         setCurrentPath('/about');
         if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
         else window.scrollTo({ top: 0, behavior: 'instant' });
-      } else if (p.startsWith('/work') || p.startsWith('/process') || h === '#work-page' || h === '#process-page') {
-        setCurrentPath('/work');
+      } else if (p.startsWith('/process') || p.startsWith('/work') || h === '#process-page' || h === '#work-page') {
+        setCurrentPath('/process');
+        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+        else window.scrollTo({ top: 0, behavior: 'instant' });
+      } else if (p.startsWith('/pricing') || h === '#pricing-page') {
+        setCurrentPath('/pricing');
         if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
         else window.scrollTo({ top: 0, behavior: 'instant' });
       } else {
@@ -102,9 +108,14 @@ export default function App() {
     return <AboutPage />;
   }
 
-  // Dedicated Work / Process Page View
-  if (currentPath === '/work') {
-    return <WorkPage />;
+  // Dedicated Process Page View
+  if (currentPath === '/process') {
+    return <ProcessPage />;
+  }
+
+  // Dedicated Pricing Page View
+  if (currentPath === '/pricing') {
+    return <PricingPage />;
   }
 
   // Home Page View
