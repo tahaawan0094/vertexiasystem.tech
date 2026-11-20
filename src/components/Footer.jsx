@@ -44,6 +44,15 @@ export default function Footer() {
       return;
     }
 
+    if (href === '#pharmacy-pos' || href === '/pharmacy-pos' || href === '/products/pharmacy-pos') {
+      e.preventDefault();
+      window.history.pushState({}, '', '/products/pharmacy-pos');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+      else window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
+
     if (href === '#process' || href === '/process' || href === '#work' || href === '/work') {
       e.preventDefault();
       window.history.pushState({}, '', '/process');
@@ -54,7 +63,7 @@ export default function Footer() {
     }
 
     const current = window.location.pathname.toLowerCase();
-    if (current === '/contact' || current === '/about' || current === '/process' || current === '/pricing' || current === '/work') {
+    if (current === '/contact' || current === '/about' || current === '/process' || current === '/pricing' || current === '/products/pharmacy-pos' || current === '/pharmacy-pos' || current === '/work') {
       e.preventDefault();
       window.history.pushState({}, '', '/' + href);
       window.dispatchEvent(new PopStateEvent('popstate'));
@@ -139,7 +148,7 @@ export default function Footer() {
             <div className="footer-col">
               <h4 className="footer-col-heading">Products</h4>
               <ul className="footer-links-list">
-                <li><a href="#services">Pharmacy POS</a></li>
+                <li><a href="/products/pharmacy-pos" onClick={(e) => handleNavClick(e, '/products/pharmacy-pos')}>Pharmacy POS</a></li>
                 <li><a href="#services">Restaurant ERP</a></li>
                 <li><a href="#services">Garage CRM</a></li>
                 <li><a href="#services">Retail POS</a></li>

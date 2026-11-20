@@ -19,7 +19,7 @@ export default function Navbar() {
     {
       title: 'PHARMACY POS',
       desc: 'Medicine inventory, expiry tracking, barcode billing & offline counter sync',
-      href: '#services',
+      href: '/products/pharmacy-pos',
     },
     {
       title: 'RESTAURANT ERP',
@@ -70,6 +70,14 @@ export default function Navbar() {
       else window.scrollTo({ top: 0, behavior: 'instant' });
       return;
     }
+    if (href === '/products/pharmacy-pos' || href === '/pharmacy-pos') {
+      e.preventDefault();
+      window.history.pushState({}, '', '/products/pharmacy-pos');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+      else window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
     if (href === '/process' || href === '/work') {
       e.preventDefault();
       window.history.pushState({}, '', '/process');
@@ -79,7 +87,7 @@ export default function Navbar() {
       return;
     }
     const current = window.location.pathname.toLowerCase();
-    if (current === '/contact' || current === '/about' || current === '/process' || current === '/pricing' || current === '/work') {
+    if (current === '/contact' || current === '/about' || current === '/process' || current === '/pricing' || current === '/products/pharmacy-pos' || current === '/pharmacy-pos' || current === '/work') {
       e.preventDefault();
       window.history.pushState({}, '', '/' + (href || ''));
       window.dispatchEvent(new PopStateEvent('popstate'));

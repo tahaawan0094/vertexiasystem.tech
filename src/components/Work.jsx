@@ -4,6 +4,16 @@ import CornerBracket from './CornerBracket';
 import './Work.css';
 
 export default function Work() {
+  const handleProjectClick = (e, href) => {
+    if (href.startsWith('/')) {
+      e.preventDefault();
+      window.history.pushState({}, '', href);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+      else window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  };
+
   const projects = [
     {
       id: '01',
@@ -11,7 +21,7 @@ export default function Work() {
       title: 'PHARMACY POS',
       subtext: 'Complete billing, inventory management, and expiry tracking with owner mobile app sync.',
       img: '/Products section/32aaabb4-7092-4d41-b2c7-7378e46ed4fd.webp',
-      href: '#contact',
+      href: '/products/pharmacy-pos',
     },
     {
       id: '02',
@@ -70,6 +80,7 @@ export default function Work() {
               href={project.href}
               className="work-card"
               role="listitem"
+              onClick={(e) => handleProjectClick(e, project.href)}
             >
               {/* Card Image Container */}
               <div className="card-media">
