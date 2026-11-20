@@ -41,6 +41,28 @@ export default function ProcessPage() {
     } else {
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
+
+    // Dynamic SEO Metadata
+    document.title = 'Process — From Idea to Launch | VERTEXIA';
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.name = 'description';
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      'content',
+      'From Idea to Launch: One transparent board, bi-weekly functional demos, and fixed-quote releases. Discover our four-phase development process.'
+    );
+
+    // Dynamic Canonical Link
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://vertexiasystem.tech/process';
   }, []);
 
   return (

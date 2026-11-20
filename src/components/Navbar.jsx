@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
-import { ArrowUpRight, ChevronDown, Sparkles, Layers, Cpu, ShieldCheck } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import CornerBracket from './CornerBracket';
 import './Navbar.css';
 
 export default function Navbar() {
   const [productsOpen, setProductsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const closeTimerRef = useRef(null);
+
+  const handleDropdownEnter = () => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    setProductsOpen(true);
+  };
+
+  const handleDropdownLeave = () => {
+    closeTimerRef.current = setTimeout(() => {
+      setProductsOpen(false);
+    }, 220);
+  };
 
   const navLinks = [
-    { num: '01', label: 'PRODUCTS', hasDropdown: true },
+    { num: '01', label: 'SERVICES', hasDropdown: true },
     { num: '02', label: 'PROCESS', href: '/process' },
     { num: '03', label: 'PRICING', href: '/pricing' },
     { num: '04', label: 'ABOUT', href: '/about' },
@@ -25,6 +40,7 @@ export default function Navbar() {
       title: 'RESTAURANT ERP',
       desc: 'KOT management, table ordering, recipe inventory & live analytics',
       href: '#services',
+      badge: 'COMING SOON',
     },
     {
       title: 'GARAGE CRM',
@@ -35,6 +51,7 @@ export default function Navbar() {
       title: 'RETAIL POS',
       desc: 'Fast multi-branch retail checkout, thermal receipt printing & ledgers',
       href: '#services',
+      badge: 'COMING SOON',
     },
   ];
 
@@ -139,8 +156,8 @@ export default function Navbar() {
           <div
             key={item.num}
             className={`nav-item ${item.hasDropdown ? 'has-dropdown' : ''}`}
-            onMouseEnter={() => item.hasDropdown && setProductsOpen(true)}
-            onMouseLeave={() => item.hasDropdown && setProductsOpen(false)}
+            onMouseEnter={() => item.hasDropdown && handleDropdownEnter()}
+            onMouseLeave={() => item.hasDropdown && handleDropdownLeave()}
           >
             {item.hasDropdown ? (
               <button
@@ -163,9 +180,13 @@ export default function Navbar() {
               </a>
             )}
 
-            {/* Products Mega-Dropdown (Xenith Pulse Style) */}
+            {/* Products / Services Mega-Dropdown */}
             {item.hasDropdown && productsOpen && (
-              <div className="dropdown-panel mega-dropdown-panel">
+              <div
+                className="dropdown-panel mega-dropdown-panel"
+                onMouseEnter={handleDropdownEnter}
+                onMouseLeave={handleDropdownLeave}
+              >
                 <div className="mega-dropdown-grid">
                   {productsList.map((product, idx) => (
                     <a 
@@ -179,6 +200,11 @@ export default function Navbar() {
                     >
                       <div className="mega-product-header">
                         <span className="mega-product-title">{product.title}</span>
+                        {product.badge ? (
+                          <span className="mega-product-badge">{product.badge}</span>
+                        ) : (
+                          <ArrowUpRight size={13} className="mega-product-arrow" />
+                        )}
                       </div>
                       <p className="mega-product-desc">{product.desc}</p>
                     </a>

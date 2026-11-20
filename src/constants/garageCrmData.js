@@ -1,11 +1,43 @@
 // Configuration & constants for Garage CRM Suite
 
 export const GARAGE_CRM_PRICING = {
-  monthly: 10,
-  yearly: 100,
+  oneTime: 199,
+  monthly: 20,
   currency: 'USD',
-  savingsPerYear: 20, // ($10 * 12 = $120) - $100 = $20
 };
+
+export const GARAGE_DEMO_CHAPTERS = [
+  {
+    label: '01',
+    title: 'Vehicle Check-in',
+    desc: 'Plate lookup, customer complaint & vehicle inspection.',
+    time: 0,
+  },
+  {
+    label: '02',
+    title: 'Estimates & Quotes',
+    desc: 'Add parts, labor rate & customer approval before repair.',
+    time: 25,
+  },
+  {
+    label: '03',
+    title: 'Mechanic Assignment',
+    desc: 'Assign bays, track work orders & live status.',
+    time: 50,
+  },
+  {
+    label: '04',
+    title: 'Spare Parts Stock',
+    desc: 'Auto inventory deduction, low-stock alerts & purchases.',
+    time: 75,
+  },
+  {
+    label: '05',
+    title: 'Invoicing & Delivery',
+    desc: 'Thermal bill printing, payment & next service date.',
+    time: 100,
+  },
+];
 
 export const JOB_BOARD_COLUMNS = [
   {
@@ -144,7 +176,7 @@ export const FEATURES_LIST = [
 export const GARAGE_FAQ = [
   {
     q: 'How much does it cost to use the software?',
-    a: 'Garage CRM is $10 per month or $100 per year, which saves you $20 compared with paying monthly.',
+    a: 'Garage CRM is $199 as a one-time license, or $20 per month for cloud access with sync, backups and updates.',
   },
   {
     q: 'How do I install it?',
@@ -160,6 +192,6 @@ export const GARAGE_FAQ = [
   },
   {
     q: 'What happens after launch?',
-    a: 'You get updates and support. Monthly and yearly plans include WhatsApp, phone and remote desktop help.',
+    a: 'You get updates and support. Monthly and one-time license plans include WhatsApp, phone and remote desktop help.',
   },
 ];

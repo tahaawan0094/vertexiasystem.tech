@@ -83,7 +83,33 @@ export default function AboutPage() {
 
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    // Dynamic SEO Metadata
+    document.title = 'About Us — Senior Engineers & Proven Delivery | VERTEXIA';
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.name = 'description';
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      'content',
+      'Meet Vertexia System: senior software engineers building reliable offline-first point-of-sale and enterprise tools with 2-week delivery sprints.'
+    );
+
+    // Dynamic Canonical Link
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://vertexiasystem.tech/about';
   }, []);
 
   const currentTestimonial =

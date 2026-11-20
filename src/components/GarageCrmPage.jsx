@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Check } from 'lucide-react';
+import { Play, Check } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import PixelCar from './PixelCar';
 import CubeScene from './CubeScene';
 import {
   GARAGE_CRM_PRICING,
+  GARAGE_DEMO_CHAPTERS,
   JOB_BOARD_COLUMNS,
   WORKFLOW_STEPS,
   FEATURES_LIST,
@@ -14,6 +15,9 @@ import {
 import './GarageCrmPage.css';
 
 export default function GarageCrmPage() {
+  // Demo video active chapter
+  const [activeChapter, setActiveChapter] = useState(0);
+
   // FAQ Terminal Typing Effect
   const [activeFaq, setActiveFaq] = useState(0);
   const [typedAnswer, setTypedAnswer] = useState(GARAGE_FAQ[0].a);
@@ -41,8 +45,17 @@ export default function GarageCrmPage() {
     }
     metaDesc.setAttribute(
       'content',
-      'Garage CRM Suite by Vertexia: job cards, vehicle history, spare parts and invoices in one Windows app for workshops. $10 per month or $100 per year.'
+      'Garage CRM Suite by Vertexia: offline-first workshop management with job cards, vehicle history, parts stock and automated billing. $199 one-time or $20 per month.'
     );
+
+    // Canonical link update
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://vertexiasystem.tech/products/garage-crm';
 
     // Dynamic JSON-LD Structured Data
     let scriptTag = document.getElementById('garage-crm-jsonld');
@@ -61,17 +74,17 @@ export default function GarageCrmPage() {
       offers: [
         {
           '@type': 'Offer',
-          name: 'Monthly Plan',
-          price: String(GARAGE_CRM_PRICING.monthly),
+          name: 'One-Time License',
+          price: String(GARAGE_CRM_PRICING.oneTime),
           priceCurrency: GARAGE_CRM_PRICING.currency,
-          description: '$10 per month for complete Garage CRM Suite with ongoing updates and support.',
+          description: '$199 one-time license for complete Garage CRM Suite with lifetime ownership.',
         },
         {
           '@type': 'Offer',
-          name: 'Yearly Plan',
-          price: String(GARAGE_CRM_PRICING.yearly),
+          name: 'Monthly Plan',
+          price: String(GARAGE_CRM_PRICING.monthly),
           priceCurrency: GARAGE_CRM_PRICING.currency,
-          description: '$100 per year, saving $20 compared with monthly billing.',
+          description: '$20 per month for cloud access, multi-branch sync and updates.',
         },
       ],
       description:
@@ -123,10 +136,10 @@ export default function GarageCrmPage() {
     return () => clearInterval(typingTimerRef.current);
   }, [activeFaq]);
 
-  // Navigate to contact/quote page
-  const handleGetStarted = (e) => {
+  // Navigate to pricing page
+  const handlePricingClick = (e) => {
     e.preventDefault();
-    window.history.pushState({}, '', '/contact');
+    window.history.pushState({}, '', '/pricing');
     window.dispatchEvent(new PopStateEvent('popstate'));
     if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
     else window.scrollTo({ top: 0, behavior: 'instant' });
@@ -197,12 +210,12 @@ export default function GarageCrmPage() {
                   <i aria-hidden="true">↗</i>
                 </a>
                 <a
-                  href="#board"
-                  onClick={(e) => handleScrollTo(e, '#board')}
+                  href="#demo"
+                  onClick={(e) => handleScrollTo(e, '#demo')}
                   className="crm-btn crm-btn-outline"
                 >
-                  <span>See the job board</span>
-                  <i aria-hidden="true">↓</i>
+                  <span>Watch demo</span>
+                  <i aria-hidden="true">▶</i>
                 </a>
               </div>
             </div>
@@ -216,12 +229,12 @@ export default function GarageCrmPage() {
           {/* 3 Stats Bar */}
           <div className="crm-stats-row">
             <div className="crm-stat-box">
-              <b className="crm-stat-val">${GARAGE_CRM_PRICING.monthly}</b>
-              <span className="crm-stat-label">Per month</span>
+              <b className="crm-stat-val">${GARAGE_CRM_PRICING.oneTime}</b>
+              <span className="crm-stat-label">One-time license</span>
             </div>
             <div className="crm-stat-box">
-              <b className="crm-stat-val">${GARAGE_CRM_PRICING.yearly}</b>
-              <span className="crm-stat-label">Per year</span>
+              <b className="crm-stat-val">${GARAGE_CRM_PRICING.monthly}</b>
+              <span className="crm-stat-label">Per month, cloud</span>
             </div>
             <div className="crm-stat-box">
               <b className="crm-stat-val">0</b>
@@ -232,13 +245,78 @@ export default function GarageCrmPage() {
       </header>
 
       {/* =========================================================================
-          SECTION 2: JOB BOARD (Cream #E9E5DA - Sample 4-Column Board)
+          SECTION 2: DEMO VIDEO SECTION (Workshop Day in 2 Minutes)
           ========================================================================= */}
-      <section className="crm-sec crm-sec-light" id="board">
+      <section className="crm-sec crm-sec-light" id="demo">
         <div className="crm-wrap">
           <div className="crm-sec-head crm-reveal">
             <div>
-              <div className="crm-eb">[ 01 / Job board ]</div>
+              <div className="crm-eb">[ 01 / Demo ]</div>
+              <h2 className="crm-h2">
+                A workshop day in <em>two minutes.</em>
+              </h2>
+            </div>
+            <p className="crm-head-p">
+              From vehicle check-in to closing the daily ledger. Jump to a chapter or preview the workflow.
+            </p>
+          </div>
+
+          <div className="crm-demo-grid">
+            {/* Left: Video Player container with real software UI mockup & play overlay */}
+            <div className="crm-player-box crm-card-br crm-reveal">
+              <div className="crm-video-inner-container">
+                <img
+                  src="/products/garage-crm.png"
+                  alt="Garage CRM Suite Interface Preview"
+                  className="crm-video-poster"
+                />
+                <div className="crm-play-overlay">
+                  <button className="crm-play-circle" aria-label="Preview video demo">
+                    <Play size={28} fill="currentColor" />
+                  </button>
+                  <span className="crm-play-hint">PREVIEW WORKSHOP DEMO</span>
+                </div>
+              </div>
+
+              {/* Progress Ticker Overlay Bar */}
+              <div className="crm-video-ticker">
+                <span className="crm-ticker-time">0:00</span>
+                <div className="crm-ticker-bar">
+                  <i style={{ width: '0%' }} />
+                </div>
+                <span className="crm-ticker-time">2:00</span>
+              </div>
+            </div>
+
+            {/* Right: Chapter Seeking List */}
+            <div className="crm-chapters-list crm-reveal">
+              {GARAGE_DEMO_CHAPTERS.map((ch, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={`crm-chapter-btn ${activeChapter === idx ? 'active' : ''}`}
+                  onClick={() => setActiveChapter(idx)}
+                >
+                  <span className="ch-num">{ch.label}</span>
+                  <span className="ch-info">
+                    <b className="ch-title">{ch.title}</b>
+                    <span className="ch-desc">{ch.desc}</span>
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 3: JOB BOARD (Dark #070708 - Live 4-Column Board)
+          ========================================================================= */}
+      <section className="crm-sec crm-sec-dark" id="board">
+        <div className="crm-wrap">
+          <div className="crm-sec-head crm-reveal">
+            <div>
+              <div className="crm-eb">[ 02 / Job board ]</div>
               <h2 className="crm-h2">
                 Every car in the shop, <em>at a glance.</em>
               </h2>
@@ -283,13 +361,13 @@ export default function GarageCrmPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 3: WORKFLOW (Dark #070708 - 4 Steps)
+          SECTION 4: WORKFLOW (Cream #E9E5DA - 4 Steps)
           ========================================================================= */}
-      <section className="crm-sec crm-sec-dark" id="workflow">
+      <section className="crm-sec crm-sec-light" id="workflow">
         <div className="crm-wrap">
           <div className="crm-sec-head crm-reveal">
             <div>
-              <div className="crm-eb">[ 02 / Workflow ]</div>
+              <div className="crm-eb">[ 03 / Workflow ]</div>
               <h2 className="crm-h2">
                 From check-in to delivery in <em>four steps.</em>
               </h2>
@@ -317,13 +395,13 @@ export default function GarageCrmPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 4: FEATURES (Cream #E9E5DA - 8 Workshop Cards)
+          SECTION 5: FEATURES (Dark #070708 - 8 Workshop Cards)
           ========================================================================= */}
-      <section className="crm-sec crm-sec-light" id="features">
+      <section className="crm-sec crm-sec-dark" id="features">
         <div className="crm-wrap">
           <div className="crm-sec-head crm-reveal">
             <div>
-              <div className="crm-eb">[ 03 / Features ]</div>
+              <div className="crm-eb">[ 04 / Features ]</div>
               <h2 className="crm-h2">
                 Built for the <em>workshop.</em>
               </h2>
@@ -352,9 +430,9 @@ export default function GarageCrmPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 5: VEHICLE HISTORY (Dark #070708 - Split Terminal Panel)
+          SECTION 6: VEHICLE HISTORY (Cream #E9E5DA - Split Terminal Panel)
           ========================================================================= */}
-      <section className="crm-sec crm-sec-dark" id="history">
+      <section className="crm-sec crm-sec-light" id="history">
         <div className="crm-wrap crm-split-grid">
           <div className="crm-split-copy crm-reveal">
             <div className="crm-eb">[ Vehicle history ]</div>
@@ -396,29 +474,58 @@ export default function GarageCrmPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 6: PRICING (Cream #E9E5DA - Monthly & Yearly Cards)
+          SECTION 7: PRICING (Dark #070708 - One-Time & Monthly Cards)
           ========================================================================= */}
-      <section className="crm-sec crm-sec-light" id="pricing">
+      <section className="crm-sec crm-sec-dark" id="pricing">
         <div className="crm-wrap">
           <div className="crm-sec-head crm-reveal">
             <div>
-              <div className="crm-eb">[ 04 / Pricing ]</div>
+              <div className="crm-eb">[ 05 / Pricing ]</div>
               <h2 className="crm-h2">
                 Clear prices, <em>no surprises.</em>
               </h2>
             </div>
             <p className="crm-head-p">
-              Pay monthly, or pay yearly and save. Prices in USD.
+              Own the software for life, or pay monthly for cloud access. Prices in USD.
             </p>
           </div>
 
           <div className="crm-pricing-grid">
-            {/* Card 1: Monthly (Light Card) */}
+            {/* Card 1: One-time license (Light Card) */}
             <div className="crm-price-card crm-price-light crm-card-br crm-reveal-card">
-              <span className="crm-price-tag">01 · Monthly</span>
+              <span className="crm-price-tag">01 · One-time license</span>
               <h3 className="crm-price-title">Garage CRM &amp; POS</h3>
               <p className="crm-price-sub">
-                Low upfront cost, cancel anytime with 30 days notice.
+                Complete software with lifetime ownership and zero recurring fees.
+              </p>
+              <div className="crm-price-amount">
+                ${GARAGE_CRM_PRICING.oneTime}
+                <small>Fixed price</small>
+              </div>
+
+              <ul className="crm-price-bullets">
+                <li>Offline-first local database and workshop sync</li>
+                <li>Job cards, vehicle history and automated invoicing</li>
+                <li>Unlimited customers, vehicles, mechanics and parts</li>
+                <li>Lifetime license, pay once, keep forever</li>
+                <li>30 days of launch setup and onboarding support</li>
+              </ul>
+
+              <a href="/pricing" onClick={handlePricingClick} className="crm-btn crm-btn-br">
+                <span>Get one-time license</span>
+                <i aria-hidden="true">↗</i>
+              </a>
+            </div>
+
+            {/* Card 2: Monthly access (Dark Card) */}
+            <div
+              className="crm-price-card crm-price-dark crm-card-br crm-reveal-card"
+              style={{ transitionDelay: '0.15s' }}
+            >
+              <span className="crm-price-tag">02 · Monthly access</span>
+              <h3 className="crm-price-title">Garage CRM Cloud</h3>
+              <p className="crm-price-sub">
+                Low upfront cost with automated cloud sync, hosting and updates.
               </p>
               <div className="crm-price-amount">
                 ${GARAGE_CRM_PRICING.monthly}
@@ -426,42 +533,15 @@ export default function GarageCrmPage() {
               </div>
 
               <ul className="crm-price-bullets">
-                <li>Full access to Garage CRM Suite</li>
-                <li>Job cards, vehicles, customers, parts and invoices</li>
-                <li>Continuous updates and patches</li>
-                <li>WhatsApp, phone and remote desktop support</li>
+                <li>Full cloud access to Garage CRM Suite</li>
+                <li>Real-time multi-branch and workshop synchronization</li>
+                <li>Automated daily offsite cloud backups and recovery</li>
+                <li>Continuous feature updates and patches</li>
+                <li>Priority WhatsApp, phone and remote desktop support</li>
               </ul>
 
-              <a href="/contact" onClick={handleGetStarted} className="crm-btn crm-btn-br">
+              <a href="/pricing" onClick={handlePricingClick} className="crm-btn crm-btn-br">
                 <span>Start monthly plan</span>
-                <i aria-hidden="true">↗</i>
-              </a>
-            </div>
-
-            {/* Card 2: Yearly (Dark Card) */}
-            <div
-              className="crm-price-card crm-price-dark crm-card-br crm-reveal-card"
-              style={{ transitionDelay: '0.15s' }}
-            >
-              <span className="crm-price-tag">02 · Yearly</span>
-              <h3 className="crm-price-title">Garage CRM &amp; POS</h3>
-              <p className="crm-price-sub">
-                Everything in monthly. You save ${GARAGE_CRM_PRICING.savingsPerYear} compared with 12 monthly payments.
-              </p>
-              <div className="crm-price-amount">
-                ${GARAGE_CRM_PRICING.yearly}
-                <small>Per year</small>
-              </div>
-
-              <ul className="crm-price-bullets">
-                <li>Everything in the monthly plan</li>
-                <li>One payment for the whole year</li>
-                <li>Updates and patches included</li>
-                <li>Custom workflows quoted after a free scoping call</li>
-              </ul>
-
-              <a href="/contact" onClick={handleGetStarted} className="crm-btn crm-btn-br">
-                <span>Start yearly plan</span>
                 <i aria-hidden="true">↗</i>
               </a>
             </div>
@@ -474,13 +554,13 @@ export default function GarageCrmPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 7: FAQ (Dark #070708 - Terminal Simulator)
+          SECTION 8: FAQ (Cream #E9E5DA - Terminal Simulator)
           ========================================================================= */}
-      <section className="crm-sec crm-sec-dark" id="faq">
+      <section className="crm-sec crm-sec-light" id="faq">
         <div className="crm-wrap">
           <div className="crm-sec-head crm-reveal">
             <div>
-              <div className="crm-eb">[ 05 / FAQ ]</div>
+              <div className="crm-eb">[ 06 / FAQ ]</div>
               <h2 className="crm-h2">
                 Questions, <em>answered.</em>
               </h2>
@@ -532,7 +612,7 @@ export default function GarageCrmPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 8: CLOSING CTA (Put Garage CRM in your workshop + 3D Cube)
+          SECTION 9: CLOSING CTA (Put Garage CRM in your workshop with 3D Cube)
           ========================================================================= */}
       <section className="crm-closing-cta-sec">
         <div className="crm-wrap crm-cta-grid">

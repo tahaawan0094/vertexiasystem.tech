@@ -373,7 +373,228 @@
 }
 
 /* --------------------------------------------------------------------------
-   SECTION 2: JOB BOARD (Cream #E9E5DA)
+   SECTION 2: DEMO VIDEO SECTION
+   -------------------------------------------------------------------------- */
+
+.crm-demo-grid {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 34px;
+}
+
+.crm-player-box {
+  position: relative;
+  background: var(--crm-k);
+  color: #ece8dd;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.crm-player-box:hover {
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.5), 0 0 35px rgba(183, 148, 255, 0.2);
+}
+
+.crm-video-inner-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  background: #000;
+  overflow: hidden;
+}
+
+.crm-video-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.85;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.crm-player-box:hover .crm-video-poster {
+  transform: scale(1.02);
+  opacity: 0.95;
+}
+
+/* Floating Interactive Play Overlay */
+.crm-play-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(7, 7, 8, 0.2) 0%, rgba(7, 7, 8, 0.72) 100%);
+  backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 10;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.crm-play-overlay:hover {
+  background: radial-gradient(circle at center, rgba(7, 7, 8, 0.1) 0%, rgba(7, 7, 8, 0.55) 100%);
+  backdrop-filter: blur(0px);
+}
+
+.crm-play-circle {
+  all: unset;
+  cursor: pointer;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: rgba(183, 148, 255, 0.95);
+  color: #070708;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 0 rgba(183, 148, 255, 0.75), 0 10px 25px rgba(0, 0, 0, 0.5);
+  animation: crm-play-pulse 2.2s infinite cubic-bezier(0.66, 0, 0, 1);
+  transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.crm-play-overlay:hover .crm-play-circle {
+  transform: scale(1.12);
+  background: #ffffff;
+  color: #070708;
+  box-shadow: 0 0 35px rgba(183, 148, 255, 0.95);
+}
+
+@keyframes crm-play-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(183, 148, 255, 0.75), 0 10px 25px rgba(0, 0, 0, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 22px rgba(183, 148, 255, 0), 0 10px 25px rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(183, 148, 255, 0), 0 10px 25px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.crm-play-hint {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(7, 7, 8, 0.85);
+  padding: 7px 16px;
+  border: 1px solid rgba(183, 148, 255, 0.3);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  transition: all 0.2s ease;
+}
+
+.crm-play-overlay:hover .crm-play-hint {
+  border-color: var(--crm-p);
+  color: var(--crm-p);
+}
+
+.crm-video-ticker {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 16px;
+  background: rgba(7, 7, 8, 0.96);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  color: #ECE7DD;
+}
+
+.crm-ticker-time {
+  min-width: 36px;
+  color: var(--crm-d);
+}
+
+.crm-ticker-bar {
+  flex: 1;
+  height: 3px;
+  background: var(--crm-ln);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.crm-ticker-bar i {
+  display: block;
+  height: 100%;
+  background: var(--crm-p);
+  transition: width 0.15s linear;
+}
+
+/* Chapters List */
+.crm-chapters-list {
+  display: grid;
+  align-content: start;
+}
+
+.crm-chapter-btn {
+  all: unset;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--crm-lc);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.crm-chapter-btn:first-child {
+  border-top: 1px solid var(--crm-lc);
+}
+
+.crm-chapter-btn .ch-num {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  color: #6f6b62;
+  padding-top: 3px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.crm-chapter-btn .ch-title {
+  font-family: var(--font-hero, 'Archivo', sans-serif);
+  font-stretch: 112%;
+  font-size: 17px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0d0d0f;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+.crm-chapter-btn .ch-desc {
+  display: block;
+  color: #55524b;
+  font-size: 14px;
+  margin-top: 3px;
+}
+
+.crm-chapter-btn:hover {
+  transform: translateX(6px);
+  padding-left: 8px;
+}
+
+.crm-chapter-btn:hover .ch-num,
+.crm-chapter-btn.active .ch-num {
+  color: #7c3aed;
+}
+
+.crm-chapter-btn:hover .ch-title,
+.crm-chapter-btn.active .ch-title {
+  color: #7c3aed;
+}
+
+.crm-chapter-btn.active {
+  padding-left: 14px;
+  box-shadow: inset 4px 0 #8b5cf6;
+  background: rgba(139, 92, 246, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 3: JOB BOARD (Dark #070708)
    -------------------------------------------------------------------------- */
 
 .crm-kanban-board {
@@ -1071,6 +1292,7 @@
 
 @media (max-width: 900px) {
   .crm-hero-grid,
+  .crm-demo-grid,
   .crm-kanban-board,
   .crm-split-grid,
   .crm-pricing-grid,

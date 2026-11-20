@@ -21,6 +21,7 @@ import ProcessPage from './components/ProcessPage';
 import PricingPage from './components/PricingPage';
 import PharmacyPosPage from './components/PharmacyPosPage';
 import GarageCrmPage from './components/GarageCrmPage';
+import NotFoundPage from './components/NotFoundPage';
 import { AnimatedGridPattern } from '@/components/ui/animated-grid-pattern';
 import './App.css';
 
@@ -35,7 +36,8 @@ export default function App() {
       if (p.startsWith('/pricing') || h === '#pricing-page') return '/pricing';
       if (p.startsWith('/products/pharmacy-pos') || p.startsWith('/pharmacy-pos') || h === '#pharmacy-pos-page') return '/products/pharmacy-pos';
       if (p.startsWith('/products/garage-crm') || p.startsWith('/garage-crm') || h === '#garage-crm-page') return '/products/garage-crm';
-      return '/';
+      if (p === '/' || p === '' || p.startsWith('/#')) return '/';
+      return '/404';
     }
     return '/';
   });
@@ -97,8 +99,12 @@ export default function App() {
         setCurrentPath('/products/garage-crm');
         if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
         else window.scrollTo({ top: 0, behavior: 'instant' });
-      } else {
+      } else if (p === '/' || p === '' || p.startsWith('/#')) {
         setCurrentPath('/');
+      } else {
+        setCurrentPath('/404');
+        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+        else window.scrollTo({ top: 0, behavior: 'instant' });
       }
     };
 
@@ -109,6 +115,23 @@ export default function App() {
       window.removeEventListener('hashchange', handleLocationChange);
     };
   }, []);
+
+  useEffect(() => {
+    if (currentPath === '/') {
+      document.title = 'VERTEXIA — Autonomous Software & POS Systems';
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute(
+          'content',
+          'Vertexia builds modern, offline-first Point of Sale (POS) and CRM software for pharmacies, garages, restaurants, and retail businesses.'
+        );
+      }
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) {
+        canonical.href = 'https://vertexiasystem.tech/';
+      }
+    }
+  }, [currentPath]);
 
   // Dedicated Contact Page View
   if (currentPath === '/contact') {
@@ -138,6 +161,11 @@ export default function App() {
   // Dedicated Garage CRM Product Page View
   if (currentPath === '/products/garage-crm' || currentPath === '/garage-crm') {
     return <GarageCrmPage />;
+  }
+
+  // Dedicated 404 Not Found Page View
+  if (currentPath === '/404') {
+    return <NotFoundPage />;
   }
 
   // Home Page View

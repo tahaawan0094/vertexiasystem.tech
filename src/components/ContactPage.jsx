@@ -51,6 +51,36 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [localTime, setLocalTime] = useState('');
 
+  useEffect(() => {
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    // Dynamic SEO Metadata
+    document.title = 'Contact & Project Scoping | VERTEXIA';
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.name = 'description';
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      'content',
+      'Start your project with Vertexia. We reply within one business day with a free 30-minute scoping call and a fixed quote.'
+    );
+
+    // Dynamic Canonical Link
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://vertexiasystem.tech/contact';
+  }, []);
+
   // Live Karachi clock (24h, never shows "24:05")
   useEffect(() => {
     const tick = () => {

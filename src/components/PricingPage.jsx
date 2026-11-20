@@ -24,6 +24,22 @@ export default function PricingPage() {
     } else {
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
+
+    document.title = 'Pricing — Clear Prices, No Surprises | VERTEXIA';
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        'content',
+        'Transparent software engineering pricing: fixed-price MVP sprints, dedicated teams, and retainers. No lock-in, cancel anytime.'
+      );
+    }
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://vertexiasystem.tech/pricing';
   }, []);
 
   const handleStartProject = () => {

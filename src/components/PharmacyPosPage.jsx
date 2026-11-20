@@ -108,6 +108,13 @@ export default function PharmacyPosPage() {
         'MedKit POS by Vertexia: offline-first pharmacy billing with batch and expiry tracking. $199 one-time or $20 per month.'
       );
     }
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://vertexiasystem.tech/products/pharmacy-pos';
 
     // Initialize Video Frame (seek to 14s for clean real-software UI view before playback)
     const v = videoRef.current;
