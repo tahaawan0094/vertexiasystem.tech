@@ -3,7 +3,6 @@ import Navbar from './Navbar';
 import Team from './Team';
 import ContactCTA from './ContactCTA';
 import Footer from './Footer';
-import CornerBracket from './CornerBracket';
 import './AboutPage.css';
 
 const TESTIMONIALS = [

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Check } from 'lucide-react';
+import { Play, Check, Download } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import PixelCar from './PixelCar';
 import CubeScene from './CubeScene';
+import { triggerDownload } from '../constants/downloadUrls';
 import {
   GARAGE_CRM_PRICING,
   GARAGE_DEMO_CHAPTERS,
@@ -26,6 +27,16 @@ export default function GarageCrmPage() {
   // Closing CTA form state
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+
+  // Download feedback toast state
+  const [downloadToast, setDownloadToast] = useState(null);
+
+  const handleDownloadGarage = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    triggerDownload('garageCrm');
+    setDownloadToast('Downloading Garage-CRM-Setup.exe (v1.0.7)...');
+    setTimeout(() => setDownloadToast(null), 4500);
+  };
 
   useEffect(() => {
     // Scroll to top on mount
@@ -136,6 +147,15 @@ export default function GarageCrmPage() {
     return () => clearInterval(typingTimerRef.current);
   }, [activeFaq]);
 
+  // Navigate to contact page
+  const handleContactClick = (e) => {
+    e.preventDefault();
+    window.history.pushState({}, '', '/contact');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+    else window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
   // Navigate to pricing page
   const handlePricingClick = (e) => {
     e.preventDefault();
@@ -202,20 +222,21 @@ export default function GarageCrmPage() {
               </p>
               <div className="crm-cta-row">
                 <a
-                  href="#pricing"
-                  onClick={(e) => handleScrollTo(e, '#pricing')}
+                  href="/download/garage-crm"
+                  onClick={handleDownloadGarage}
                   className="crm-btn crm-btn-br"
+                  title="Try Garage CRM free for 1 month"
                 >
-                  <span>Get the CRM</span>
+                  <span>Try Free For 1 Month</span>
                   <i aria-hidden="true">↗</i>
                 </a>
                 <a
-                  href="#demo"
-                  onClick={(e) => handleScrollTo(e, '#demo')}
+                  href="/contact"
+                  onClick={handleContactClick}
                   className="crm-btn crm-btn-outline"
                 >
-                  <span>Watch demo</span>
-                  <i aria-hidden="true">▶</i>
+                  <span>Request a Walkthrough</span>
+                  <i aria-hidden="true">↗</i>
                 </a>
               </div>
             </div>
@@ -655,6 +676,14 @@ export default function GarageCrmPage() {
           </div>
         </div>
       </section>
+
+      {/* Floating Download Toast */}
+      {downloadToast && (
+        <div className="crm-download-toast" role="status" aria-live="polite">
+          <Download size={16} className="crm-toast-icon" />
+          <span>{downloadToast}</span>
+        </div>
+      )}
 
       {/* Real Site Footer */}
       <Footer />

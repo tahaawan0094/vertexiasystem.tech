@@ -22,6 +22,8 @@ import PricingPage from './components/PricingPage';
 import PharmacyPosPage from './components/PharmacyPosPage';
 import GarageCrmPage from './components/GarageCrmPage';
 import NotFoundPage from './components/NotFoundPage';
+import DownloadRedirectPage from './components/DownloadRedirectPage';
+import { DOWNLOAD_CONFIG } from './constants/downloadUrls';
 import { AnimatedGridPattern } from '@/components/ui/animated-grid-pattern';
 import './App.css';
 
@@ -36,6 +38,8 @@ export default function App() {
       if (p.startsWith('/pricing') || h === '#pricing-page') return '/pricing';
       if (p.startsWith('/products/pharmacy-pos') || p.startsWith('/pharmacy-pos') || h === '#pharmacy-pos-page') return '/products/pharmacy-pos';
       if (p.startsWith('/products/garage-crm') || p.startsWith('/garage-crm') || h === '#garage-crm-page') return '/products/garage-crm';
+      if (p.startsWith('/download/pharmacy-pos') || p.startsWith('/download/medkit-pos')) return '/download/pharmacy-pos';
+      if (p.startsWith('/download/garage-crm') || p.startsWith('/download/garage-crm-setup')) return '/download/garage-crm';
       if (p === '/' || p === '' || p.startsWith('/#')) return '/';
       return '/404';
     }
@@ -97,6 +101,14 @@ export default function App() {
         else window.scrollTo({ top: 0, behavior: 'instant' });
       } else if (p.startsWith('/products/garage-crm') || p.startsWith('/garage-crm') || h === '#garage-crm-page') {
         setCurrentPath('/products/garage-crm');
+        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+        else window.scrollTo({ top: 0, behavior: 'instant' });
+      } else if (p.startsWith('/download/pharmacy-pos') || p.startsWith('/download/medkit-pos')) {
+        setCurrentPath('/download/pharmacy-pos');
+        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+        else window.scrollTo({ top: 0, behavior: 'instant' });
+      } else if (p.startsWith('/download/garage-crm') || p.startsWith('/download/garage-crm-setup')) {
+        setCurrentPath('/download/garage-crm');
         if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
         else window.scrollTo({ top: 0, behavior: 'instant' });
       } else if (p === '/' || p === '' || p.startsWith('/#')) {
@@ -166,6 +178,35 @@ export default function App() {
   // Dedicated 404 Not Found Page View
   if (currentPath === '/404') {
     return <NotFoundPage />;
+  }
+
+  // Dedicated Clean Download Redirects
+  if (currentPath === '/download/pharmacy-pos') {
+    const cfg = DOWNLOAD_CONFIG.pharmacyPos;
+    return (
+      <DownloadRedirectPage
+        title={cfg.name}
+        fileName={cfg.fileName}
+        version={cfg.version}
+        downloadUrl={cfg.directUrl}
+        backUrl="/products/pharmacy-pos"
+        backLabel="Pharmacy POS Page"
+      />
+    );
+  }
+
+  if (currentPath === '/download/garage-crm') {
+    const cfg = DOWNLOAD_CONFIG.garageCrm;
+    return (
+      <DownloadRedirectPage
+        title={cfg.name}
+        fileName={cfg.fileName}
+        version={cfg.version}
+        downloadUrl={cfg.directUrl}
+        backUrl="/products/garage-crm"
+        backLabel="Garage CRM Page"
+      />
+    );
   }
 
   // Home Page View

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, Play, Pause, Volume2, VolumeX, Check } from 'lucide-react';
+import { Play, Check, Download } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import CornerBracket from './CornerBracket';
 import CubeScene from './CubeScene';
+import { triggerDownload } from '../constants/downloadUrls';
 import './PharmacyPosPage.css';
 
 const CHAPTERS = [
@@ -90,6 +90,28 @@ export default function PharmacyPosPage() {
   // Closing CTA form state
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+
+  // Download feedback toast state
+  const [downloadToast, setDownloadToast] = useState(null);
+
+  const handleDownloadMedKit = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    triggerDownload('pharmacyPos');
+    setDownloadToast('Downloading MedKit.POS.Setup.exe (v1.2.1)...');
+    setTimeout(() => setDownloadToast(null), 4500);
+  };
+
+  const handleScrollTo = (e, hash) => {
+    e.preventDefault();
+    const el = document.querySelector(hash);
+    if (el) {
+      if (window.__lenis) {
+        window.__lenis.scrollTo(el, { offset: -60 });
+      } else {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   useEffect(() => {
     // Scroll to top
@@ -237,6 +259,14 @@ export default function PharmacyPosPage() {
     return () => clearInterval(typingTimerRef.current);
   }, [activeFaq]);
 
+  const handleContactClick = (e) => {
+    e.preventDefault();
+    window.history.pushState({}, '', '/contact');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+    else window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
   const handlePricingClick = (e) => {
     e.preventDefault();
     window.history.pushState({}, '', '/pricing');
@@ -293,13 +323,22 @@ export default function PharmacyPosPage() {
                 MedKit POS handles billing, batches, expiry dates and stock at your counter. It runs on your own computer, so a slow connection never stops a sale.
               </p>
               <div className="phm-cta-row">
-                <a href="#pricing" className="phm-btn phm-btn-br phm-hover-glow">
-                  <span>Get the POS</span>
+                <a
+                  href="/download/pharmacy-pos"
+                  onClick={handleDownloadMedKit}
+                  className="phm-btn phm-btn-br phm-hover-glow"
+                  title="Try MedKit POS free for 1 month"
+                >
+                  <span>Try Free For 1 Month</span>
                   <i aria-hidden="true">↗</i>
                 </a>
-                <a href="#demo" className="phm-btn phm-btn-outline phm-hover-outline">
-                  <span>Watch 2-min demo</span>
-                  <i aria-hidden="true">▶</i>
+                <a
+                  href="/contact"
+                  onClick={handleContactClick}
+                  className="phm-btn phm-btn-outline phm-hover-outline"
+                >
+                  <span>Request a Walkthrough</span>
+                  <i aria-hidden="true">↗</i>
                 </a>
               </div>
             </div>
@@ -774,6 +813,14 @@ export default function PharmacyPosPage() {
           </div>
         </div>
       </section>
+
+      {/* Floating Download Toast */}
+      {downloadToast && (
+        <div className="phm-download-toast" role="status" aria-live="polite">
+          <Download size={16} className="phm-toast-icon" />
+          <span>{downloadToast}</span>
+        </div>
+      )}
 
       {/* Real Site Footer */}
       <Footer />
