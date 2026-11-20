@@ -1,0 +1,73 @@
+/* Pixel-art Sports Car (62 columns x 19 rows) */
+.pxcar {
+  display: grid;
+  grid-template-columns: repeat(62, 1fr);
+  gap: 2px;
+  width: 100%;
+  max-width: 640px;
+  margin-left: auto;
+  filter: drop-shadow(0 25px 50px rgba(183, 148, 255, 0.25));
+  animation: car-float 6s ease-in-out infinite alternate;
+  user-select: none;
+}
+
+@keyframes car-float {
+  0% {
+    transform: translateY(0px);
+    filter: drop-shadow(0 25px 45px rgba(183, 148, 255, 0.2));
+  }
+  100% {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 35px 65px rgba(183, 148, 255, 0.35));
+  }
+}
+
+.pxcar i {
+  aspect-ratio: 1;
+  display: block;
+  border-radius: 1px;
+}
+
+.pxcar .cell-x {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pxcar .cell-cream {
+  background-color: #ECE8DD;
+}
+
+.pxcar .cell-mid {
+  background-color: #C9C4B8;
+}
+
+.pxcar .cell-muted {
+  background-color: #827E96;
+}
+
+.pxcar .cell-glass {
+  background-color: #D2BCFF;
+}
+
+.pxcar .cell-purple {
+  background-color: #B794FF;
+  box-shadow: 0 0 4px rgba(183, 148, 255, 0.7);
+}
+
+.pxcar .cell-underglow {
+  background-color: #5C468C;
+  box-shadow: 0 0 6px rgba(92, 70, 140, 0.8);
+}
+
+@media (max-width: 900px) {
+  .pxcar {
+    margin: 36px auto 0;
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pxcar {
+    animation: none !important;
+  }
+}

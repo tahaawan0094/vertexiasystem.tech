@@ -20,6 +20,7 @@ import AboutPage from './components/AboutPage';
 import ProcessPage from './components/ProcessPage';
 import PricingPage from './components/PricingPage';
 import PharmacyPosPage from './components/PharmacyPosPage';
+import GarageCrmPage from './components/GarageCrmPage';
 import { AnimatedGridPattern } from '@/components/ui/animated-grid-pattern';
 import './App.css';
 
@@ -33,6 +34,7 @@ export default function App() {
       if (p.startsWith('/process') || p.startsWith('/work') || h === '#process-page' || h === '#work-page') return '/process';
       if (p.startsWith('/pricing') || h === '#pricing-page') return '/pricing';
       if (p.startsWith('/products/pharmacy-pos') || p.startsWith('/pharmacy-pos') || h === '#pharmacy-pos-page') return '/products/pharmacy-pos';
+      if (p.startsWith('/products/garage-crm') || p.startsWith('/garage-crm') || h === '#garage-crm-page') return '/products/garage-crm';
       return '/';
     }
     return '/';
@@ -91,6 +93,10 @@ export default function App() {
         setCurrentPath('/products/pharmacy-pos');
         if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
         else window.scrollTo({ top: 0, behavior: 'instant' });
+      } else if (p.startsWith('/products/garage-crm') || p.startsWith('/garage-crm') || h === '#garage-crm-page') {
+        setCurrentPath('/products/garage-crm');
+        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+        else window.scrollTo({ top: 0, behavior: 'instant' });
       } else {
         setCurrentPath('/');
       }
@@ -127,6 +133,11 @@ export default function App() {
   // Dedicated Pharmacy POS Product Page View
   if (currentPath === '/products/pharmacy-pos' || currentPath === '/pharmacy-pos') {
     return <PharmacyPosPage />;
+  }
+
+  // Dedicated Garage CRM Product Page View
+  if (currentPath === '/products/garage-crm' || currentPath === '/garage-crm') {
+    return <GarageCrmPage />;
   }
 
   // Home Page View

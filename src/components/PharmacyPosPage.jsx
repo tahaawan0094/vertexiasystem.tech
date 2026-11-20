@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, Play, Check } from 'lucide-react';
+import { ArrowUpRight, Play, Pause, Volume2, VolumeX, Check } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import CornerBracket from './CornerBracket';
@@ -37,25 +37,39 @@ const FAQ_ITEMS = [
   },
 ];
 
-// 9x9 Pixel Medical Cross matching the reference design
-function PixelMedicalCross() {
-  const cells = [];
-  for (let r = 0; r < 9; r++) {
-    for (let c = 0; c < 9; c++) {
-      const on = (r >= 3 && r <= 5) || (c >= 3 && c <= 5);
-      const isPurple = (r * 9 + c) % 4 === 0;
-      cells.push({ on, isPurple, key: `${r}-${c}` });
-    }
-  }
+// Exact 9x9 Pixel Medical Cross from user reference:
+// '.' = empty/hidden, 'W' = cream/white lit, 'P' = purple accent lit
+const CROSS_MATRIX = [
+  ['.', '.', '.', 'W', 'P', 'W', '.', '.', '.'],
+  ['.', '.', '.', 'P', 'W', 'W', '.', '.', '.'],
+  ['.', '.', '.', 'W', 'W', 'W', '.', '.', '.'],
+  ['W', 'P', 'W', 'W', 'W', 'P', 'W', 'W', 'W'],
+  ['P', 'W', 'W', 'W', 'P', 'W', 'W', 'W', 'P'],
+  ['W', 'W', 'W', 'P', 'W', 'W', 'W', 'P', 'W'],
+  ['.', '.', '.', 'W', 'W', 'W', '.', '.', '.'],
+  ['.', '.', '.', 'W', 'W', 'P', '.', '.', '.'],
+  ['.', '.', '.', 'W', 'P', 'W', '.', '.', '.'],
+];
 
+function PixelMedicalCross() {
   return (
-    <div className="phm-pixel-cross" aria-hidden="true">
-      {cells.map(({ on, isPurple, key }) => (
-        <span
-          key={key}
-          className={`px-dot ${on ? (isPurple ? 'px-v' : 'px-on') : 'px-off'}`}
-        />
-      ))}
+    <div className="phm-pixel-cross" aria-label="Medical pixel cross" role="img">
+      {CROSS_MATRIX.map((row, r) =>
+        row.map((cell, c) => {
+          if (cell === '.') {
+            return <span key={`${r}-${c}`} className="px-dot px-off" aria-hidden="true" />;
+          }
+          const isPurple = cell === 'P';
+          const delay = ((r + c) * 0.04).toFixed(2);
+          return (
+            <span
+              key={`${r}-${c}`}
+              style={{ animationDelay: `${delay}s` }}
+              className={`px-dot px-on ${isPurple ? 'px-v' : ''}`}
+            />
+          );
+        })
+      )}
     </div>
   );
 }
@@ -63,8 +77,9 @@ function PixelMedicalCross() {
 export default function PharmacyPosPage() {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(120);
+  const [duration, setDuration] = useState(118);
   const [activeChapterIndex, setActiveChapterIndex] = useState(0);
 
   // FAQ Terminal Typing Effect
@@ -94,55 +109,63 @@ export default function PharmacyPosPage() {
       );
     }
 
-    // Insert JSON-LD Structured Data
-    const jsonLdScript = document.createElement('script');
-    jsonLdScript.type = 'application/ld+json';
-    jsonLdScript.id = 'pharmacy-pos-jsonld';
-    jsonLdScript.text = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'SoftwareApplication',
-          name: 'MedKit POS (Pharmacy POS)',
-          applicationCategory: 'BusinessApplication',
-          operatingSystem: 'Windows, macOS, Linux',
-          offers: [
-            {
-              '@type': 'Offer',
-              name: 'One-time License',
-              price: '199',
-              priceCurrency: 'USD',
-              priceValidUntil: '2027-12-31',
-            },
-            {
-              '@type': 'Offer',
-              name: 'Monthly Cloud Access',
-              price: '20',
-              priceCurrency: 'USD',
-              priceSpecification: {
-                '@type': 'UnitPriceSpecification',
-                unitCode: 'MON',
-              },
-            },
-          ],
-        },
-        {
-          '@type': 'VideoObject',
-          name: 'MedKit Pharmacy POS Demo',
-          description: 'A pharmacy day in two minutes. From adding stock to counter billing and daily reports.',
-          thumbnailUrl: 'https://vertexiasystem.tech/products/pharmacy-pos.png',
-          uploadDate: '2026-09-17T20:00:00Z',
-          contentUrl: 'https://vertexiasystem.tech/products/PHARMACY%20POS%20DEMO%20VIDEO.mp4',
-        },
-      ],
-    });
-    document.head.appendChild(jsonLdScript);
+    // Initialize Video Frame (seek to 14s for clean real-software UI view before playback)
+    const v = videoRef.current;
+    if (v) {
+      const capturePoster = () => {
+        if (!hasStarted && v && !v.poster) {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = v.videoWidth || 1280;
+            canvas.height = v.videoHeight || 720;
+            const ctx = canvas.getContext('2d');
+            if (ctx && canvas.width > 0 && canvas.height > 0) {
+              ctx.drawImage(v, 0, 0, canvas.width, canvas.height);
+              const dataUrl = canvas.toDataURL('image/jpeg', 0.88);
+              if (dataUrl && dataUrl.length > 500) {
+                v.poster = dataUrl;
+              }
+            }
+          } catch (err) {
+            // Ignore if security restriction applies
+          }
+        }
+      };
 
-    return () => {
-      const el = document.getElementById('pharmacy-pos-jsonld');
-      if (el) el.remove();
-    };
-  }, []);
+      const initFrame = () => {
+        if (!hasStarted && v.currentTime === 0) {
+          v.currentTime = 14.0; // Clean software interface frame from actual video
+        }
+      };
+
+      v.addEventListener('seeked', capturePoster, { once: true });
+      if (v.readyState >= 2) {
+        initFrame();
+      } else {
+        v.addEventListener('loadeddata', initFrame, { once: true });
+      }
+    }
+
+    // Scroll Reveal Intersection Observer
+    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!isReduced) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('phm-in-view');
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      const elements = document.querySelectorAll('.phm-reveal, .phm-reveal-card');
+      elements.forEach((el) => observer.observe(el));
+
+      return () => observer.disconnect();
+    }
+  }, [hasStarted]);
 
   // Sync Video Time & Chapters
   const handleTimeUpdate = () => {
@@ -167,21 +190,20 @@ export default function PharmacyPosPage() {
 
   const handleSeekChapter = (seekTime, idx) => {
     if (!videoRef.current) return;
+    setHasStarted(true);
     videoRef.current.currentTime = seekTime;
     videoRef.current.play();
     setIsPlaying(true);
     setActiveChapterIndex(idx);
   };
 
-  const handleTogglePlay = () => {
+  const handleStartPlayback = () => {
     if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      videoRef.current.play();
-      setIsPlaying(true);
-    }
+    setHasStarted(true);
+    videoRef.current.currentTime = 0;
+    videoRef.current.play();
+    setIsPlaying(true);
+    setActiveChapterIndex(0);
   };
 
   // Typing effect for FAQ terminal
@@ -211,14 +233,6 @@ export default function PharmacyPosPage() {
   const handlePricingClick = (e) => {
     e.preventDefault();
     window.history.pushState({}, '', '/pricing');
-    window.dispatchEvent(new PopStateEvent('popstate'));
-    if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
-    else window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleContactClick = (e) => {
-    e.preventDefault();
-    window.history.pushState({}, '', '/contact');
     window.dispatchEvent(new PopStateEvent('popstate'));
     if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
     else window.scrollTo({ top: 0, behavior: 'instant' });
@@ -258,7 +272,7 @@ export default function PharmacyPosPage() {
       </div>
 
       {/* =========================================================================
-          SECTION 1: HERO (Dark #070708 + Medical Cross + 3 Stats)
+          SECTION 1: HERO (Dark #070708 + Medical Cross + Animated Stats)
           ========================================================================= */}
       <header className="phm-hero-sec" id="top">
         <div className="phm-wrap">
@@ -272,24 +286,27 @@ export default function PharmacyPosPage() {
                 MedKit POS handles billing, batches, expiry dates and stock at your counter. It runs on your own computer, so a slow connection never stops a sale.
               </p>
               <div className="phm-cta-row">
-                <a href="#pricing" className="phm-btn phm-btn-br">
+                <a href="#pricing" className="phm-btn phm-btn-br phm-hover-glow">
                   <span>Get the POS</span>
                   <i aria-hidden="true">↗</i>
                 </a>
-                <a href="#demo" className="phm-btn phm-btn-outline">
+                <a href="#demo" className="phm-btn phm-btn-outline phm-hover-outline">
                   <span>Watch 2-min demo</span>
                   <i aria-hidden="true">▶</i>
                 </a>
               </div>
             </div>
 
-            {/* Right: 9x9 Pixel Medical Cross */}
+            {/* Right: 9x9 Pixel Medical Cross with Breathing Pulse */}
             <div className="phm-hero-visual">
-              <PixelMedicalCross />
+              <div className="phm-cross-wrapper">
+                <PixelMedicalCross />
+                <div className="phm-cross-ambient" aria-hidden="true" />
+              </div>
             </div>
           </div>
 
-          {/* 3 Stats Bar */}
+          {/* 3 Stats Bar with Animated Counter Shimmer */}
           <div className="phm-stats-row">
             <div className="phm-stat-box">
               <b className="phm-stat-val">$199</b>
@@ -308,11 +325,11 @@ export default function PharmacyPosPage() {
       </header>
 
       {/* =========================================================================
-          SECTION 2: DEMO VIDEO (Cream #ECE7DD Canvas + Chapter Seeking)
+          SECTION 2: DEMO VIDEO (Real Frame Preview + Chapter Seeking)
           ========================================================================= */}
       <section className="phm-sec phm-sec-light" id="demo">
         <div className="phm-wrap">
-          <div className="phm-sec-head">
+          <div className="phm-sec-head phm-reveal">
             <div>
               <div className="phm-eb">[ 01 / Demo ]</div>
               <h2 className="phm-h2">
@@ -325,34 +342,48 @@ export default function PharmacyPosPage() {
           </div>
 
           <div className="phm-demo-grid">
-            {/* Left: Real Video Player */}
-            <div className="phm-player-box phm-card-br">
-              <video
-                ref={videoRef}
-                src="/products/PHARMACY POS DEMO VIDEO.mp4"
-                poster="/products/pharmacy-pos.png"
-                controls
-                playsInline
-                preload="metadata"
-                className="phm-video-tag"
-                onTimeUpdate={handleTimeUpdate}
-                onLoadedMetadata={handleLoadedMetadata}
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-              />
+            {/* Left: Real Video Player with Real Software UI Frame */}
+            <div className="phm-player-box phm-card-br phm-reveal">
+              <div className="phm-video-inner-container">
+                <video
+                  ref={videoRef}
+                  src="/products/PHARMACY POS DEMO VIDEO.mp4#t=14.0"
+                  controls
+                  playsInline
+                  preload="auto"
+                  className="phm-video-tag"
+                  onTimeUpdate={handleTimeUpdate}
+                  onLoadedMetadata={handleLoadedMetadata}
+                  onPlay={() => {
+                    setIsPlaying(true);
+                    setHasStarted(true);
+                  }}
+                  onPause={() => setIsPlaying(false)}
+                />
+
+                {/* Floating Interactive Play Overlay (fades out on play) */}
+                {!hasStarted && (
+                  <div className="phm-play-overlay" onClick={handleStartPlayback}>
+                    <button className="phm-play-circle" aria-label="Play video demo">
+                      <Play size={26} fill="currentColor" />
+                    </button>
+                    <span className="phm-play-hint">WATCH REAL SOFTWARE DEMO</span>
+                  </div>
+                )}
+              </div>
 
               {/* Progress Ticker Overlay Bar */}
               <div className="phm-video-ticker">
                 <span className="phm-ticker-time">{formatSecs(currentTime)}</span>
                 <div className="phm-ticker-bar">
-                  <i style={{ width: `${(currentTime / (duration || 120)) * 100}%` }} />
+                  <i style={{ width: `${(currentTime / (duration || 118)) * 100}%` }} />
                 </div>
-                <span className="phm-ticker-time">{formatSecs(duration || 120)}</span>
+                <span className="phm-ticker-time">{formatSecs(duration || 118)}</span>
               </div>
             </div>
 
             {/* Right: Chapter Seeking List */}
-            <div className="phm-chapters-list">
+            <div className="phm-chapters-list phm-reveal">
               {CHAPTERS.map((ch, idx) => {
                 const isActive = activeChapterIndex === idx;
                 return (
@@ -376,11 +407,11 @@ export default function PharmacyPosPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 3: WORKFLOW (Dark #070708 Canvas - 4 Steps)
+          SECTION 3: WORKFLOW (Dark #070708 Canvas - 4 Steps Animated)
           ========================================================================= */}
       <section className="phm-sec phm-sec-dark" id="workflow">
         <div className="phm-wrap">
-          <div className="phm-sec-head">
+          <div className="phm-sec-head phm-reveal">
             <div>
               <div className="phm-eb">[ 02 / Workflow ]</div>
               <h2 className="phm-h2">
@@ -393,7 +424,7 @@ export default function PharmacyPosPage() {
           </div>
 
           <div className="phm-flow-grid">
-            <div className="phm-flow-step">
+            <div className="phm-flow-step phm-reveal-card" style={{ transitionDelay: '0.05s' }}>
               <i className="phm-flow-corner" aria-hidden="true" />
               <span className="phm-flow-num">Step 01</span>
               <h3 className="phm-flow-title">Add stock</h3>
@@ -402,7 +433,7 @@ export default function PharmacyPosPage() {
               </p>
             </div>
 
-            <div className="phm-flow-step">
+            <div className="phm-flow-step phm-reveal-card" style={{ transitionDelay: '0.15s' }}>
               <i className="phm-flow-corner" aria-hidden="true" />
               <span className="phm-flow-num">Step 02</span>
               <h3 className="phm-flow-title">Sell</h3>
@@ -411,7 +442,7 @@ export default function PharmacyPosPage() {
               </p>
             </div>
 
-            <div className="phm-flow-step">
+            <div className="phm-flow-step phm-reveal-card" style={{ transitionDelay: '0.25s' }}>
               <i className="phm-flow-corner" aria-hidden="true" />
               <span className="phm-flow-num">Step 03</span>
               <h3 className="phm-flow-title">Print</h3>
@@ -420,7 +451,7 @@ export default function PharmacyPosPage() {
               </p>
             </div>
 
-            <div className="phm-flow-step">
+            <div className="phm-flow-step phm-reveal-card" style={{ transitionDelay: '0.35s' }}>
               <i className="phm-flow-corner" aria-hidden="true" />
               <span className="phm-flow-num">Step 04</span>
               <h3 className="phm-flow-title">Review</h3>
@@ -437,7 +468,7 @@ export default function PharmacyPosPage() {
           ========================================================================= */}
       <section className="phm-sec phm-sec-light" id="features">
         <div className="phm-wrap">
-          <div className="phm-sec-head">
+          <div className="phm-sec-head phm-reveal">
             <div>
               <div className="phm-eb">[ 03 / Features ]</div>
               <h2 className="phm-h2">
@@ -451,7 +482,7 @@ export default function PharmacyPosPage() {
 
           <div className="phm-feat-grid">
             {/* Card 1: Wide Dark Card */}
-            <div className="phm-card phm-card-dark phm-card-span2 phm-card-br">
+            <div className="phm-card phm-card-dark phm-card-span2 phm-card-br phm-reveal-card">
               <span className="phm-card-tag">Offline-first</span>
               <h3 className="phm-card-title">Works without internet</h3>
               <p className="phm-card-desc">
@@ -460,7 +491,7 @@ export default function PharmacyPosPage() {
             </div>
 
             {/* Card 2 */}
-            <div className="phm-card phm-card-light phm-card-br">
+            <div className="phm-card phm-card-light phm-card-br phm-reveal-card" style={{ transitionDelay: '0.1s' }}>
               <span className="phm-card-tag">Billing</span>
               <h3 className="phm-card-title">Barcode billing</h3>
               <p className="phm-card-desc">
@@ -469,7 +500,7 @@ export default function PharmacyPosPage() {
             </div>
 
             {/* Card 3 */}
-            <div className="phm-card phm-card-light phm-card-br">
+            <div className="phm-card phm-card-light phm-card-br phm-reveal-card" style={{ transitionDelay: '0.15s' }}>
               <span className="phm-card-tag">Inventory</span>
               <h3 className="phm-card-title">Batch and expiry</h3>
               <p className="phm-card-desc">
@@ -478,7 +509,7 @@ export default function PharmacyPosPage() {
             </div>
 
             {/* Card 4 */}
-            <div className="phm-card phm-card-light phm-card-br">
+            <div className="phm-card phm-card-light phm-card-br phm-reveal-card" style={{ transitionDelay: '0.2s' }}>
               <span className="phm-card-tag">Alerts</span>
               <h3 className="phm-card-title">Low-stock warnings</h3>
               <p className="phm-card-desc">
@@ -487,7 +518,7 @@ export default function PharmacyPosPage() {
             </div>
 
             {/* Card 5 */}
-            <div className="phm-card phm-card-light phm-card-br">
+            <div className="phm-card phm-card-light phm-card-br phm-reveal-card" style={{ transitionDelay: '0.25s' }}>
               <span className="phm-card-tag">Reports</span>
               <h3 className="phm-card-title">Sales and profit</h3>
               <p className="phm-card-desc">
@@ -496,7 +527,7 @@ export default function PharmacyPosPage() {
             </div>
 
             {/* Card 6 */}
-            <div className="phm-card phm-card-light phm-card-br">
+            <div className="phm-card phm-card-light phm-card-br phm-reveal-card" style={{ transitionDelay: '0.3s' }}>
               <span className="phm-card-tag">Mobile</span>
               <h3 className="phm-card-title">Companion app</h3>
               <p className="phm-card-desc">
@@ -505,7 +536,7 @@ export default function PharmacyPosPage() {
             </div>
 
             {/* Card 7 */}
-            <div className="phm-card phm-card-light phm-card-br">
+            <div className="phm-card phm-card-light phm-card-br phm-reveal-card" style={{ transitionDelay: '0.35s' }}>
               <span className="phm-card-tag">Safety</span>
               <h3 className="phm-card-title">Cloud backups</h3>
               <p className="phm-card-desc">
@@ -521,7 +552,7 @@ export default function PharmacyPosPage() {
           ========================================================================= */}
       <section className="phm-sec phm-sec-dark" id="offline">
         <div className="phm-wrap phm-split-grid">
-          <div className="phm-split-copy">
+          <div className="phm-split-copy phm-reveal">
             <div className="phm-eb">[ Offline sync ]</div>
             <h2 className="phm-h2">
               No internet? <em>Keep selling.</em>
@@ -534,13 +565,13 @@ export default function PharmacyPosPage() {
             </ul>
           </div>
 
-          {/* Right: Terminal Frame */}
-          <div className="phm-terminal-box phm-card-br">
+          {/* Right: Terminal Frame with Breathing Scanline */}
+          <div className="phm-terminal-box phm-card-br phm-reveal">
             <div className="phm-terminal-bar">
               <div className="term-dots">
-                <span />
-                <span />
-                <span />
+                <span className="dot-red" />
+                <span className="dot-yellow" />
+                <span className="dot-green" />
               </div>
               <span className="term-title">medkit — sync</span>
             </div>
@@ -564,7 +595,7 @@ export default function PharmacyPosPage() {
           ========================================================================= */}
       <section className="phm-sec phm-sec-light" id="pricing">
         <div className="phm-wrap">
-          <div className="phm-sec-head">
+          <div className="phm-sec-head phm-reveal">
             <div>
               <div className="phm-eb">[ 04 / Pricing ]</div>
               <h2 className="phm-h2">
@@ -578,7 +609,7 @@ export default function PharmacyPosPage() {
 
           <div className="phm-pricing-grid">
             {/* Card 1: One-time license (Light Card) */}
-            <div className="phm-price-card phm-price-light phm-card-br">
+            <div className="phm-price-card phm-price-light phm-card-br phm-reveal-card">
               <span className="phm-price-tag">01 · One-time license</span>
               <h3 className="phm-price-title">Pharmacy POS</h3>
               <p className="phm-price-sub">
@@ -596,14 +627,14 @@ export default function PharmacyPosPage() {
                 <li>30 days of launch setup and onboarding support</li>
               </ul>
 
-              <a href="/pricing" onClick={handlePricingClick} className="phm-btn phm-btn-br">
+              <a href="/pricing" onClick={handlePricingClick} className="phm-btn phm-btn-br phm-hover-glow">
                 <span>Get one-time license</span>
                 <i aria-hidden="true">↗</i>
               </a>
             </div>
 
             {/* Card 2: Monthly access (Dark Card) */}
-            <div className="phm-price-card phm-price-dark phm-card-br">
+            <div className="phm-price-card phm-price-dark phm-card-br phm-reveal-card" style={{ transitionDelay: '0.15s' }}>
               <span className="phm-price-tag">02 · Monthly access</span>
               <h3 className="phm-price-title">Pharmacy POS Cloud</h3>
               <p className="phm-price-sub">
@@ -621,14 +652,14 @@ export default function PharmacyPosPage() {
                 <li>Priority WhatsApp, phone and remote desktop support</li>
               </ul>
 
-              <a href="/pricing" onClick={handlePricingClick} className="phm-btn phm-btn-br">
+              <a href="/pricing" onClick={handlePricingClick} className="phm-btn phm-btn-br phm-hover-glow">
                 <span>Start monthly plan</span>
                 <i aria-hidden="true">↗</i>
               </a>
             </div>
           </div>
 
-          <div className="phm-pricing-footnote">
+          <div className="phm-pricing-footnote phm-reveal">
             Prices in USD · No lock-in · Cancel with 30 days notice
           </div>
         </div>
@@ -639,7 +670,7 @@ export default function PharmacyPosPage() {
           ========================================================================= */}
       <section className="phm-sec phm-sec-dark" id="faq">
         <div className="phm-wrap">
-          <div className="phm-sec-head">
+          <div className="phm-sec-head phm-reveal">
             <div>
               <div className="phm-eb">[ 05 / FAQ ]</div>
               <h2 className="phm-h2">
@@ -653,7 +684,7 @@ export default function PharmacyPosPage() {
 
           <div className="phm-faq-grid">
             {/* Left: Questions List */}
-            <div className="phm-faq-questions">
+            <div className="phm-faq-questions phm-reveal">
               {FAQ_ITEMS.map((item, idx) => (
                 <button
                   key={idx}
@@ -668,12 +699,12 @@ export default function PharmacyPosPage() {
             </div>
 
             {/* Right: Terminal Simulator */}
-            <div className="phm-terminal-box phm-card-br">
+            <div className="phm-terminal-box phm-card-br phm-reveal">
               <div className="phm-terminal-bar">
                 <div className="term-dots">
-                  <span />
-                  <span />
-                  <span />
+                  <span className="dot-red" />
+                  <span className="dot-yellow" />
+                  <span className="dot-green" />
                 </div>
                 <span className="term-title">vertexia — zsh</span>
               </div>
@@ -697,7 +728,7 @@ export default function PharmacyPosPage() {
           ========================================================================= */}
       <section className="phm-closing-cta-sec">
         <div className="phm-wrap phm-cta-grid">
-          <div className="phm-cta-copy">
+          <div className="phm-cta-copy phm-reveal">
             <div className="phm-eb">[ Get started ]</div>
             <h2 className="phm-h2">
               Put MedKit <em>on your counter.</em>
@@ -722,7 +753,7 @@ export default function PharmacyPosPage() {
                   aria-label="Email address"
                   className="phm-email-input"
                 />
-                <button type="submit" className="phm-btn phm-btn-br">
+                <button type="submit" className="phm-btn phm-btn-br phm-hover-glow">
                   <span>Get a quote</span>
                   <i aria-hidden="true">↗</i>
                 </button>
@@ -731,7 +762,7 @@ export default function PharmacyPosPage() {
           </div>
 
           {/* Right: 3D Interactive Three.js Cube */}
-          <div className="phm-cta-cube-col">
+          <div className="phm-cta-cube-col phm-reveal">
             <CubeScene />
           </div>
         </div>

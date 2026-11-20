@@ -29,7 +29,7 @@ export default function Navbar() {
     {
       title: 'GARAGE CRM',
       desc: 'Job cards, customer vehicle history, parts stock & automated invoicing',
-      href: '#services',
+      href: '/products/garage-crm',
     },
     {
       title: 'RETAIL POS',
@@ -78,6 +78,14 @@ export default function Navbar() {
       else window.scrollTo({ top: 0, behavior: 'instant' });
       return;
     }
+    if (href === '/products/garage-crm' || href === '/garage-crm') {
+      e.preventDefault();
+      window.history.pushState({}, '', '/products/garage-crm');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+      else window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
     if (href === '/process' || href === '/work') {
       e.preventDefault();
       window.history.pushState({}, '', '/process');
@@ -87,7 +95,7 @@ export default function Navbar() {
       return;
     }
     const current = window.location.pathname.toLowerCase();
-    if (current === '/contact' || current === '/about' || current === '/process' || current === '/pricing' || current === '/products/pharmacy-pos' || current === '/pharmacy-pos' || current === '/work') {
+    if (current === '/contact' || current === '/about' || current === '/process' || current === '/pricing' || current === '/products/pharmacy-pos' || current === '/pharmacy-pos' || current === '/products/garage-crm' || current === '/garage-crm' || current === '/work') {
       e.preventDefault();
       window.history.pushState({}, '', '/' + (href || ''));
       window.dispatchEvent(new PopStateEvent('popstate'));

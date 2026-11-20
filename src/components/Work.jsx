@@ -29,7 +29,7 @@ export default function Work() {
       title: 'GARAGE CRM & POS',
       subtext: 'Streamlined work orders, vehicle tracking, quotations, and mechanics management.',
       img: '/Products section/a6399e82-3731-46e4-a1db-1ea86b38e858.webp',
-      href: '#contact',
+      href: '/products/garage-crm',
     },
     {
       id: '03',
